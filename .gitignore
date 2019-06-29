@@ -1,0 +1,12 @@
+.idea
+out
+*.eml
+*.iml
+target
+.classpath
+.project
+.settings
+.iws
+/bin/
+.springBeans
+/*.DS_Store
