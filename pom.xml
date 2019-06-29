@@ -8,4 +8,27 @@
     <artifactId>xs-rpc</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <properties>
+        <netty.version>4.1.36.Final</netty.version>
+    </properties>
+
+    <modules>
+        <module>xs-rpc-core</module><!-- 元数据格式定义 -->
+        <module>xs-rpc-common</module><!-- 一些工具方法 -->
+        <module>xs-rpc-remote</module><!-- 远程通信框架 -->
+        <module>xs-rpc-protocol</module><!-- 协议：http/自定义 -->
+        <module>xs-rpc-consumer</module><!-- 服务消费方 -->
+        <module>xs-rpc-provider</module><!-- 服务提供方 -->
+    </modules>
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
