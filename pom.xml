@@ -22,6 +22,7 @@
         <module>xs-rpc-consumer</module><!-- 服务消费方 -->
         <module>xs-rpc-provider</module><!-- 服务提供方 -->
         <module>xs-rpc-config</module><!-- 配置信息存放位置 -->
+        <module>xs-rpc-test</module>
     </modules>
 
     <dependencyManagement>
@@ -38,4 +39,24 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
