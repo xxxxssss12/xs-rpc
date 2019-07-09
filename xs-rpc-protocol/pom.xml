@@ -14,5 +14,11 @@
     <artifactId>xs-rpc-protocol</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    
+    <dependencies>
+        <dependency>
+            <groupId>org.cn.xs</groupId>
+            <artifactId>xs-rpc-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
