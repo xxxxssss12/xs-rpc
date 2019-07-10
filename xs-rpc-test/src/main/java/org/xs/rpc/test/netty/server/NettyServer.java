@@ -1,6 +1,8 @@
 package org.xs.rpc.test.netty.server;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -8,11 +10,16 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
-import org.xs.rpc.test.netty.protocol.MessageDecoder;
-import org.xs.rpc.test.netty.protocol.MessageEncoder;
+import org.xs.rpc.protocol.xsp.XspConstant;
+import org.xs.rpc.protocol.xsp.XspDecoder;
+import org.xs.rpc.protocol.xsp.XspEncoder;
+import org.xs.rpc.test.netty.protocol.DecoderAdapter;
+import org.xs.rpc.test.netty.protocol.EncoderAdapter;
+import org.xs.rpc.test.netty.protocol.ProtocolContext;
 
 public class NettyServer {
     static final boolean SSL = System.getProperty("ssl") != null;
@@ -50,16 +57,21 @@ public class NettyServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
+                            ProtocolContext protocolContext = new ProtocolContext(
+                                    new EncoderAdapter(new XspEncoder()),
+                                    new DecoderAdapter(new XspDecoder()),
+                                    XspConstant.PACKAGE_TAG);
+                            // 分隔符配置
+                            ByteBuf delemiter= Unpooled.buffer();
+                            delemiter.writeByte(protocolContext.getSeperateCharacter());
                             ChannelPipeline p = ch.pipeline();
                             if (sslCtx != null) {
                                 p.addLast(sslCtx.newHandler(ch.alloc()));
                             }
-                            p.addLast(new MessageDecoder());
-                            p.addLast(new MessageEncoder());
-                            //p.addLast(new LoggingHandler(LogLevel.INFO));
-                            //p.addLast("encoder", new MessageEncoder());
-                            //p.addLast("decoder", new MessageDecoder());
-                            //p.addFirst(new LineBasedFrameDecoder(65535));
+                            //先使用DelimiterBasedFrameDecoder解码
+                            p.addLast(new DelimiterBasedFrameDecoder(32 * 1024, true, true,delemiter));
+                            p.addLast(protocolContext.getDecoder());
+                            p.addLast(protocolContext.getEncoder());
                             p.addLast(new NettyServerHandler());
                         }
                     });

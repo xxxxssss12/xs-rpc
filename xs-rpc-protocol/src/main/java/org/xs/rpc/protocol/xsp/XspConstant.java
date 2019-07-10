@@ -10,7 +10,7 @@ public class XspConstant {
     /**
      * 一个包最大32k
      */
-    public static final int MAX_LENGTH = 32767 - 45;
+    public static final int MAX_LENGTH = 32767;
     /**
      * 包长度志头
      **/

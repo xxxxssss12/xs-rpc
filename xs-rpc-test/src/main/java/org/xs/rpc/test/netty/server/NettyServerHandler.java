@@ -3,8 +3,10 @@ package org.xs.rpc.test.netty.server;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.xs.rpc.test.netty.protocol.Header;
-import org.xs.rpc.test.netty.protocol.Message;
+import org.xs.rpc.protocol.Header;
+import org.xs.rpc.protocol.Message;
+import org.xs.rpc.protocol.xsp.XspHeader;
+import org.xs.rpc.protocol.xsp.XspMessage;
 
 @ChannelHandler.Sharable
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
@@ -18,11 +20,9 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
         //此处写接收到客户端请求后的业务逻辑
         String content = "hello world,this is nettyServer";
-        Header header = new Header((byte) 0, (byte) 1, (byte) 1, (byte) 1, (byte) 0, "713f17ca614361fb257dc6741332caf2", content.getBytes("UTF-8").length, 1);
-        Message message = new Message(header, content);
+        XspHeader header = new XspHeader((byte) 0, (byte) 1, (byte) 1, (byte) 1, (byte) 0, "713f17ca614361fb257dc6741332caf2", content.getBytes("UTF-8").length, 1);
+        Message message = new XspMessage(header, content);
         ctx.writeAndFlush(message);
-        //ctx.writeAndFlush(Unpooled.copiedBuffer("hello world,this is nettyServer",CharsetUtil.UTF_8));
-
     }
 
     //读取完成后处理方法
