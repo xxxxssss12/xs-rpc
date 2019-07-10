@@ -27,6 +27,14 @@ public class XspMessage implements Message {
         this.header = header;
     }
 
+    public XspHeader getHeader() {
+        return header;
+    }
+
+    public void setHeader(XspHeader header) {
+        this.header = header;
+    }
+
     public XspMessage(XspHeader header, String data) {
         this.header = header;
         this.data = data;

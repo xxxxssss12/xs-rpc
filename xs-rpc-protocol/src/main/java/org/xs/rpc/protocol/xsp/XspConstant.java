@@ -8,6 +8,10 @@ package org.xs.rpc.protocol.xsp;
  */
 public class XspConstant {
     /**
+     * 一个包最大32k
+     */
+    public static final int MAX_LENGTH = 32767 - 45;
+    /**
      * 包长度志头
      **/
     public static final int HEAD_LENGHT = 45;
@@ -29,7 +33,7 @@ public class XspConstant {
         SESSIONID(5,32),
         LENGTH(37,4),
         COMMAND(41, 4),
-
+        DATA(45, -1)
         ;
         private int index;  // 位置
         private int offset; // 偏移量

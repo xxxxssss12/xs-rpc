@@ -25,14 +25,24 @@ public class XspDecoder implements Decoder {
         byte extend1 = data[XspConstant.PackageDef.EXTEND1.getIndex()];
         byte extend2 = data[XspConstant.PackageDef.EXTEND2.getIndex()];
         byte[] sessionByte = ByteArrUtils.getBytes(data, XspConstant.PackageDef.SESSIONID.getIndex(), XspConstant.PackageDef.SESSIONID.getOffset());
+        String sessionId = null;
         try {
-            String sessionId = new String(sessionByte, XspConstant.CHARSET);
+            sessionId = new String(sessionByte, XspConstant.CHARSET);
         } catch (UnsupportedEncodingException e) {
             throw new ProtocolException(e.getMessage());
         }
         int length = ByteArrUtils.readInt(data, XspConstant.PackageDef.LENGTH.getIndex());
         int command = ByteArrUtils.readInt(data, XspConstant.PackageDef.COMMAND.getIndex());
-        // TODO
-        return null;
+        byte[] dataBytes = ByteArrUtils.getBytes(data, XspConstant.PackageDef.DATA.getIndex(), length);
+        String dataStr = null;
+        try {
+            dataStr = new String(dataBytes, XspConstant.CHARSET);
+        } catch (UnsupportedEncodingException e) {
+            throw new ProtocolException(e.getMessage());
+        }
+        // message封装
+        XspHeader header = new XspHeader(tag, encode, encrypt, extend1, extend2, sessionId, length, command);
+        XspMessage message = new XspMessage(header, dataStr);
+        return message;
     }
 }
