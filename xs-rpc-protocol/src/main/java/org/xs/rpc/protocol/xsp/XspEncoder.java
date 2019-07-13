@@ -20,6 +20,9 @@ public class XspEncoder implements Encoder {
         XspMessage xspMsg = (XspMessage) msg;
         XspHeader header = xspMsg.getHeader();
         int size = header.getLength() + 45;
+        if (size > XspConstant.MAX_LENGTH) {
+            throw new ProtocolException("package size too large! size=" + size);
+        }
         List<Byte> headers = new ArrayList<>(45);
         headers.add(header.getTag());
         headers.add(header.getEncode());

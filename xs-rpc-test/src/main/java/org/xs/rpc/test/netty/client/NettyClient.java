@@ -11,8 +11,6 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
-import org.xs.rpc.test.netty.protocol.MessageDecoder;
-import org.xs.rpc.test.netty.protocol.MessageEncoder;
 
 public class NettyClient {
     static final boolean SSL = System.getProperty("ssl") != null;
@@ -54,8 +52,8 @@ public class NettyClient {
                                 p.addLast(sslCtx.newHandler(ch.alloc(), HOST, PORT));
                             }
                             //p.addLast(new LoggingHandler(LogLevel.INFO));
-                            p.addLast(new MessageDecoder());
-                            p.addLast(new MessageEncoder());
+//                            p.addLast(new MessageDecoder());
+//                            p.addLast(new MessageEncoder());
                             //p.addLast("encoder", new MessageEncoder());
                             //p.addLast("decoder", new MessageDecoder());
                             //p.addFirst(new LineBasedFrameDecoder(65535));

@@ -17,7 +17,8 @@ public class DecoderAdapter extends ByteToMessageDecoder {
     public DecoderAdapter(Decoder decoder) {
         this.decoder = decoder;
     }
+    @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
-        
+
     }
 }
