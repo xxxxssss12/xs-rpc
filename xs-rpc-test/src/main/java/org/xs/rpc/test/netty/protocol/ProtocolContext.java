@@ -3,6 +3,9 @@ package org.xs.rpc.test.netty.protocol;
 import org.xs.rpc.protocol.Decoder;
 import org.xs.rpc.protocol.Encoder;
 import org.xs.rpc.protocol.Message;
+import org.xs.rpc.protocol.MessageBuilder;
+
+import java.util.Properties;
 
 /**
  * create by xs
@@ -10,25 +13,31 @@ import org.xs.rpc.protocol.Message;
  */
 public class ProtocolContext {
 
-    private EncoderAdapter encoder;
-    private DecoderAdapter decoder;
-    private Byte seperateCharacter;
+    private static EncoderAdapter encoder;
+    private static DecoderAdapter decoder;
+    private static Byte seperateCharacter;
+    private static MessageBuilder messageBuilder;
 
-    public ProtocolContext(EncoderAdapter encoder, DecoderAdapter decoder, Byte seperateCharacter) {
-        this.encoder = encoder;
-        this.decoder = decoder;
-        this.seperateCharacter = seperateCharacter;
+    public ProtocolContext(EncoderAdapter encoder, DecoderAdapter decoder, Byte seperateCharacter, MessageBuilder builder) {
+        ProtocolContext.encoder = encoder;
+        ProtocolContext.decoder = decoder;
+        ProtocolContext.seperateCharacter = seperateCharacter;
+        ProtocolContext.messageBuilder = builder;
     }
 
-    public EncoderAdapter getEncoder() {
+    public static EncoderAdapter getEncoder() {
         return encoder;
     }
 
-    public DecoderAdapter getDecoder() {
+    public static DecoderAdapter getDecoder() {
         return decoder;
     }
 
-    public Byte getSeperateCharacter() {
+    public static Byte getSeperateCharacter() {
         return seperateCharacter;
+    }
+
+    public static MessageBuilder getMessageBuilder() {
+        return messageBuilder;
     }
 }

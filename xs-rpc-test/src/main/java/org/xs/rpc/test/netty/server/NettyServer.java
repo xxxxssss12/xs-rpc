@@ -17,6 +17,7 @@ import io.netty.handler.ssl.util.SelfSignedCertificate;
 import org.xs.rpc.protocol.xsp.XspConstant;
 import org.xs.rpc.protocol.xsp.XspDecoder;
 import org.xs.rpc.protocol.xsp.XspEncoder;
+import org.xs.rpc.protocol.xsp.XspMessageBuilder;
 import org.xs.rpc.test.netty.protocol.DecoderAdapter;
 import org.xs.rpc.test.netty.protocol.EncoderAdapter;
 import org.xs.rpc.test.netty.protocol.ProtocolContext;
@@ -57,21 +58,22 @@ public class NettyServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ProtocolContext protocolContext = new ProtocolContext(
+                            new ProtocolContext(
                                     new EncoderAdapter(new XspEncoder()),
                                     new DecoderAdapter(new XspDecoder()),
-                                    XspConstant.PACKAGE_TAG);
+                                    XspConstant.PACKAGE_TAG,
+                                    new XspMessageBuilder());
                             // 分隔符配置
                             ByteBuf delemiter= Unpooled.buffer();
-                            delemiter.writeByte(protocolContext.getSeperateCharacter());
+                            delemiter.writeByte(ProtocolContext.getSeperateCharacter());
                             ChannelPipeline p = ch.pipeline();
                             if (sslCtx != null) {
                                 p.addLast(sslCtx.newHandler(ch.alloc()));
                             }
                             //先使用DelimiterBasedFrameDecoder解码
                             p.addLast(new DelimiterBasedFrameDecoder(32 * 1024, true, true,delemiter));
-                            p.addLast(protocolContext.getDecoder());
-                            p.addLast(protocolContext.getEncoder());
+                            p.addLast(ProtocolContext.getDecoder());
+                            p.addLast(ProtocolContext.getEncoder());
                             p.addLast(new NettyServerHandler());
                         }
                     });

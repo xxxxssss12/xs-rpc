@@ -1,6 +1,7 @@
 package org.xs.rpc.protocol.xsp;
 
 import org.xs.rpc.common.exceptions.ProtocolException;
+import org.xs.rpc.common.utils.Base64Utils;
 import org.xs.rpc.common.utils.ByteArrUtils;
 import org.xs.rpc.protocol.Encoder;
 import org.xs.rpc.protocol.Message;
@@ -9,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * create by xs
@@ -16,7 +18,7 @@ import java.util.List;
  */
 public class XspEncoder implements Encoder {
     @Override
-    public byte[] encode(Message msg) {
+    public byte[] encode(Message msg) throws ProtocolException {
         XspMessage xspMsg = (XspMessage) msg;
         XspHeader header = xspMsg.getHeader();
         int size = header.getLength() + 45;
@@ -29,13 +31,14 @@ public class XspEncoder implements Encoder {
         headers.add(header.getEncrypt());
         headers.add(header.getExtend1());
         headers.add(header.getExtend2());
+        headers.addAll(Objects.requireNonNull(ByteArrUtils.strToBytes(header.getSessionid())));
         headers.addAll(Arrays.asList(ByteArrUtils.intToBytes(header.getLength())));
         headers.addAll(Arrays.asList(ByteArrUtils.intToBytes(header.getCammand())));
         Byte[] headerArr = new Byte[45];
         headers.toArray(headerArr);
         byte[] bodyArr = null;
         try {
-            bodyArr = xspMsg.getData().getBytes(XspConstant.CHARSET);
+            bodyArr = Base64Utils.encode(xspMsg.getData(), XspConstant.CHARSET);
         } catch (UnsupportedEncodingException e) {
             throw new ProtocolException(e.getMessage());
         }

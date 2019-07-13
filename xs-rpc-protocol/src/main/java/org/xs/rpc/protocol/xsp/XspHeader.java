@@ -20,7 +20,7 @@ public class XspHeader implements Header {
     private byte extend2;
     /*会话id*/
     private String sessionid;
-    /*包的长度*/
+    /*包的长度, 是base64编码后的包长度*/
     private int length = 1024;
     /*命令*/
     private int cammand;

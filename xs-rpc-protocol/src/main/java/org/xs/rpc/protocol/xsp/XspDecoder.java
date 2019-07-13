@@ -1,5 +1,6 @@
 package org.xs.rpc.protocol.xsp;
 
+import org.xs.rpc.common.utils.Base64Utils;
 import org.xs.rpc.common.utils.ByteArrUtils;
 import org.xs.rpc.protocol.Decoder;
 import org.xs.rpc.protocol.Message;
@@ -36,7 +37,7 @@ public class XspDecoder implements Decoder {
         byte[] dataBytes = ByteArrUtils.getBytes(data, XspConstant.PackageDef.DATA.getIndex(), length);
         String dataStr = null;
         try {
-            dataStr = new String(dataBytes, XspConstant.CHARSET);
+            dataStr = Base64Utils.decode(dataBytes, XspConstant.CHARSET);
         } catch (UnsupportedEncodingException e) {
             throw new ProtocolException(e.getMessage());
         }
@@ -44,5 +45,16 @@ public class XspDecoder implements Decoder {
         XspHeader header = new XspHeader(tag, encode, encrypt, extend1, extend2, sessionId, length, command);
         XspMessage message = new XspMessage(header, dataStr);
         return message;
+    }
+
+    @Override
+    public int getHeaderLength() {
+        return XspConstant.HEAD_LENGHT;
+    }
+
+    @Override
+    public int getBodyLength(byte[] headerArr) {
+        int length = ByteArrUtils.readInt(headerArr, XspConstant.PackageDef.LENGTH.getIndex());
+        return length;
     }
 }

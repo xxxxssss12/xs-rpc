@@ -12,6 +12,7 @@
     <properties>
         <netty.version>4.1.36.Final</netty.version>
         <fastjson.version>1.2.58</fastjson.version>
+        <commons-codes.version>1.12</commons-codes.version>
     </properties>
 
     <modules>
@@ -36,6 +37,11 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codes.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

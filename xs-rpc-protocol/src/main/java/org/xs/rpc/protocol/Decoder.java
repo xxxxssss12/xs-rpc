@@ -9,4 +9,8 @@ import java.net.ProtocolException;
 public interface Decoder {
 
     Message decode(byte[] data) throws ProtocolException;
+
+    int getHeaderLength();
+
+    int getBodyLength(byte[] headerArr);
 }

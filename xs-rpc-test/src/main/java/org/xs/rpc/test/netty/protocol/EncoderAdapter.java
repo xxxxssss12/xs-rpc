@@ -12,6 +12,11 @@ import org.xs.rpc.protocol.Message;
  */
 public class EncoderAdapter extends MessageToByteEncoder<Message> {
     private Encoder encoder;
+
+    public Encoder getEncoder() {
+        return encoder;
+    }
+
     public EncoderAdapter(Encoder encoder) {
         this.encoder = encoder;
     }
