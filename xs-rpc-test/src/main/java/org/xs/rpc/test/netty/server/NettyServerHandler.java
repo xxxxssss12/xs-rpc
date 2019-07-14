@@ -10,6 +10,7 @@ import org.xs.rpc.protocol.Header;
 import org.xs.rpc.protocol.Message;
 import org.xs.rpc.protocol.xsp.XspHeader;
 import org.xs.rpc.protocol.xsp.XspMessage;
+import org.xs.rpc.test.netty.protocol.ProtocolContext;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -24,9 +25,10 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        byte data[] = "[server]connect success!".getBytes(CharsetUtil.UTF_8);
+        byte data[] = ProtocolContext.getEncoder().getEncoder().encode(
+            ProtocolContext.getMessageBuilder().buildMessage("[server]connect success!")
+        );
         ByteBuf buf = Unpooled.buffer(data.length); // netty自定义缓存
-
         buf.writeBytes(data);
         ctx.writeAndFlush(buf);
         System.out.println("客户端连入：" + ctx.channel().remoteAddress().toString());

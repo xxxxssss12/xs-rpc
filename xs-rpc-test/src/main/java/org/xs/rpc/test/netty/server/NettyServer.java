@@ -11,6 +11,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
@@ -53,25 +55,19 @@ public class NettyServer {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    //.option(ChannelOption.SO_BACKLOG, 100)
-                    //.handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            new ProtocolContext(
-                                    new EncoderAdapter(new XspEncoder()),
-                                    new DecoderAdapter(new XspDecoder()),
-                                    XspConstant.PACKAGE_TAG,
-                                    new XspMessageBuilder());
+                            ProtocolContext.init();
                             // 分隔符配置
-                            ByteBuf delemiter= Unpooled.buffer();
-                            delemiter.writeByte(ProtocolContext.getSeperateCharacter());
+                            ByteBuf delemiter= Unpooled.copiedBuffer(ProtocolContext.getSeperateCharacter());
                             ChannelPipeline p = ch.pipeline();
                             if (sslCtx != null) {
                                 p.addLast(sslCtx.newHandler(ch.alloc()));
                             }
+                            p.addLast(new LoggingHandler(LogLevel.INFO));
                             //先使用DelimiterBasedFrameDecoder解码
-                            p.addLast(new DelimiterBasedFrameDecoder(32 * 1024, true, true,delemiter));
+                            p.addLast(new DelimiterBasedFrameDecoder(32 * 1024, delemiter));
                             p.addLast(ProtocolContext.getDecoder());
                             p.addLast(ProtocolContext.getEncoder());
                             p.addLast(new NettyServerHandler());

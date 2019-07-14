@@ -2,7 +2,7 @@ package org.xs.rpc.test.netty.client;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.xs.rpc.protocol.xsp.XspMessage;
+import org.xs.rpc.protocol.Message;
 
 public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
@@ -10,7 +10,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         System.out.println("[client]channelRead..");
-        XspMessage msg1 = (XspMessage) msg;
+        Message msg1 = (Message) msg;
         System.out.println(msg1.getData());
     }
 

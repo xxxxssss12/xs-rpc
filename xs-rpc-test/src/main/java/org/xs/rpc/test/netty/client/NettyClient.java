@@ -8,6 +8,8 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
@@ -55,25 +57,17 @@ public class NettyClient {
             Bootstrap b = new Bootstrap();
             b.group(group)
                     .channel(NioSocketChannel.class)
-                    //.option(ChannelOption.TCP_NODELAY, true)
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            new ProtocolContext(
-                                    new EncoderAdapter(new XspEncoder()),
-                                    new DecoderAdapter(new XspDecoder()),
-                                    XspConstant.PACKAGE_TAG,
-                                    new XspMessageBuilder());
+                            ProtocolContext.init();
                             // 分隔符配置
-                            ByteBuf delemiter= Unpooled.copiedBuffer(new byte[]{ProtocolContext.getSeperateCharacter()});
-                            delemiter.writeByte(ProtocolContext.getSeperateCharacter());
+                            ByteBuf delemiter= Unpooled.copiedBuffer(ProtocolContext.getSeperateCharacter());
                             ChannelPipeline p = ch.pipeline();
                             if (sslCtx != null) {
                                 p.addLast(sslCtx.newHandler(ch.alloc(), HOST, PORT));
                             }
-                            //p.addLast(new LoggingHandler(LogLevel.INFO));
-//                            p.addLast(new MessageDecoder());
-//                            p.addLast(new MessageEncoder());
+                            p.addLast(new LoggingHandler(LogLevel.INFO));
                             p.addLast(new DelimiterBasedFrameDecoder(32 * 1024,delemiter));
                             p.addLast(ProtocolContext.getDecoder());
                             p.addLast(ProtocolContext.getEncoder());

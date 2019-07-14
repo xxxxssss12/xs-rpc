@@ -22,6 +22,7 @@ public class EncoderAdapter extends MessageToByteEncoder<Message> {
     }
     @Override
     protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
+        System.out.println("do encoder..msg=" + msg.getData());
         byte[] bytes = encoder.encode(msg);
         out.writeBytes(bytes);
     }
