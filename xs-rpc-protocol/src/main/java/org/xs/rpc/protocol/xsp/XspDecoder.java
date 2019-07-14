@@ -57,4 +57,9 @@ public class XspDecoder implements Decoder {
         int length = ByteArrUtils.readInt(headerArr, XspConstant.PackageDef.LENGTH.getIndex());
         return length;
     }
+
+    @Override
+    public int getLengthFieldOffset() {
+        return XspConstant.PackageDef.LENGTH.getIndex();
+    }
 }

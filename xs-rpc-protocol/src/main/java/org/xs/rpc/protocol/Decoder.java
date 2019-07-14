@@ -13,4 +13,6 @@ public interface Decoder {
     int getHeaderLength();
 
     int getBodyLength(byte[] headerArr);
+
+    int getLengthFieldOffset();
 }

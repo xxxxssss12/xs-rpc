@@ -12,7 +12,7 @@ public class XspConstant {
      */
     public static final int MAX_LENGTH = 32767;
     /**
-     * 包长度志头
+     * 包头长度
      **/
     public static final int HEAD_LENGHT = 45;
     /**
