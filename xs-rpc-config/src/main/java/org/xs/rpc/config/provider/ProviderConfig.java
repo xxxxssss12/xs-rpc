@@ -15,6 +15,8 @@ public class ProviderConfig {
 
     private List<ServiceConfig> serviceConfigList;  // 提供列表
 
+    private Integer handleThreadCount;  // 处理请求线程数
+
     public Integer getPort() {
         return port;
     }

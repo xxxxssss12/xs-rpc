@@ -7,6 +7,7 @@ import java.util.List;
  * create by xs, 2019-06-30 17:07
  */
 public class ServiceConfig {
+    private String serviceId;           // 服务id
     private String name;                // 服务名称
     private Class<?> interfaceClass;    // 接口类
     private Class<?> implementsClass;   // 实现类
