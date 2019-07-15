@@ -91,23 +91,21 @@ public class NettyClient {
     }
 
     private static void readMsgByConsole() {
-        new Thread(new Runnable() {
-            public void run() {
-                for (;;) {
-                    Scanner sc = new Scanner(System.in);
-                    String line = sc.nextLine();
-                    if ("end".equalsIgnoreCase(line)) {
-                        System.out.println("程序结束！");
-                        System.exit(0);
-                    }
-                    Message msg = ProtocolContext.getMessageBuilder().buildMessage(line);
-                    try {
-                        channel.writeAndFlush(ProtocolContext.getEncoder().getEncoder().encode(msg));
-                        System.out.println("[client]消息发出.." + msg.getData());
-                    } catch (ProtocolException e) {
-                        e.printStackTrace();
-                    }
+        new Thread(() -> {
+            for (;;) {
+                Scanner sc = new Scanner(System.in);
+                String line = sc.nextLine();
+                if ("end".equalsIgnoreCase(line)) {
+                    System.out.println("程序结束！");
+                    System.exit(0);
                 }
+                Message msg = ProtocolContext.getMessageBuilder().buildMessage(line);
+//                    try {
+                    channel.writeAndFlush(msg);
+                    System.out.println("[client]消息发出.." + msg.getData());
+//                    } catch (ProtocolException e) {
+//                        e.printStackTrace();
+//                    }
             }
         }).start();
     }
