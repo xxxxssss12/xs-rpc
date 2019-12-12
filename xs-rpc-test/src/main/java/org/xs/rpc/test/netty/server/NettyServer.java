@@ -39,7 +39,7 @@ public class NettyServer {
             sslCtx = null;
         }
         // Configure the server.
-        /*步骤
+        /* 步骤
          * 创建一个ServerBootstrap b实例用来配置启动服务器
          * b.group指定NioEventLoopGroup来接收处理新连接
          * b.channel指定通道类型
@@ -57,7 +57,7 @@ public class NettyServer {
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        public void initChannel(SocketChannel ch) throws Exception {
+                        public void initChannel(SocketChannel ch) {
                             ProtocolContext.init();
                             // 分隔符配置
                             ByteBuf delemiter= Unpooled.copiedBuffer(ProtocolContext.getSeperateCharacter());

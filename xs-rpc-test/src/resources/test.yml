@@ -1,0 +1,10 @@
+test:
+  a:
+    aa.bb:
+      ccc: bbb
+    bb: ccc
+    cc: ddd
+  b:
+    aa: hehe
+    bb: hehe1
+test2: test2

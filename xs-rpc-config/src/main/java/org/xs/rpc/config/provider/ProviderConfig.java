@@ -9,7 +9,11 @@ import java.util.Map;
  */
 public class ProviderConfig {
 
+    private String host;    // 主机名
+
     private Integer port;   // 监听端口
+
+    private Long exportTimestamp;
 
     private Map<String, String> envParams; // 环境变量
 
@@ -39,5 +43,21 @@ public class ProviderConfig {
 
     public void setServiceConfigList(List<ServiceConfig> serviceConfigList) {
         this.serviceConfigList = serviceConfigList;
+    }
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public Long getExportTimestamp() {
+        return exportTimestamp;
+    }
+
+    public void setExportTimestamp(Long exportTimestamp) {
+        this.exportTimestamp = exportTimestamp;
     }
 }

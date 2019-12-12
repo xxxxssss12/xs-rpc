@@ -15,6 +15,10 @@ public class Container {
         System.out.println("lock");
         lock.lock();
         try {
+            // 1. 读取配置
+            // 2. 服务提供者实例代理
+            // 3. 服务消费者实例代理
+            // 4. 监听端口
 //            createServiceInstance();
 
             System.out.println("await");
