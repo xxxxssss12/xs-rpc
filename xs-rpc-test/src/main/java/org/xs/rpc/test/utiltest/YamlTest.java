@@ -19,9 +19,7 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 public class YamlTest {
     private static Logger log = LoggerFactory.getLogger(Constant.LOGGER_NAME);
     public static void main(String[] args) {
-        File file = new File("D:\\Workspaces\\IdeaProjects\\xs-rpc\\xs-rpc-test\\src\\resources\\test.yml");
-        Properties load = YamlUtils.load(file);
-        System.out.println(JSON.toJSONString(load));
+        Properties load = YamlUtils.load(YamlTest.class.getResourceAsStream("/test.yml"));
         log.info("result={}", JSON.toJSONString(load, SerializerFeature.PrettyFormat));
     }
 }
