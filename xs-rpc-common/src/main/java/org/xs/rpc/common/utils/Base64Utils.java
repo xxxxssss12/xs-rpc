@@ -1,8 +1,6 @@
 package org.xs.rpc.common.utils;
 
 import org.apache.commons.codec.binary.Base64;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
 
 import java.io.UnsupportedEncodingException;
 
