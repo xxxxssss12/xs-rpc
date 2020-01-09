@@ -19,9 +19,9 @@ public interface Result {
      *
      * @return exception. if no exception return null.
      */
-    Throwable getException();
+    XsRpcExceptionSerialize getException();
 
-    void setException(Throwable t);
+    void setException(XsRpcExceptionSerialize t);
 
     /**
      * Has exception.

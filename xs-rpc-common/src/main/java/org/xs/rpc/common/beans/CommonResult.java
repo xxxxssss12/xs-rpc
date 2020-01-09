@@ -7,7 +7,7 @@ package org.xs.rpc.common.beans;
 public class CommonResult implements Result {
 
     private Object value;
-    private Throwable exception;
+    private XsRpcExceptionSerialize exception;
 
     @Override
     public Object getValue() {
@@ -20,12 +20,12 @@ public class CommonResult implements Result {
     }
 
     @Override
-    public Throwable getException() {
+    public XsRpcExceptionSerialize getException() {
         return exception;
     }
 
     @Override
-    public void setException(Throwable exception) {
+    public void setException(XsRpcExceptionSerialize exception) {
         this.exception = exception;
     }
 

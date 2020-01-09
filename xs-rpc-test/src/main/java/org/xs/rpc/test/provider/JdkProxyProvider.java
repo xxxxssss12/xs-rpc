@@ -3,6 +3,7 @@ package org.xs.rpc.test.provider;
 import org.xs.rpc.common.ErrorEnum;
 import org.xs.rpc.common.beans.CommonResult;
 import org.xs.rpc.common.beans.Result;
+import org.xs.rpc.common.beans.XsRpcExceptionSerialize;
 import org.xs.rpc.common.exceptions.XsRpcException;
 
 import java.lang.reflect.InvocationTargetException;
@@ -39,7 +40,7 @@ public class JdkProxyProvider<T> implements Provider {
             Object result = method.invoke(instance, arguments);
             rs.setValue(result);
         } catch (Throwable e) {
-            rs.setException(e);
+            rs.setException(new XsRpcExceptionSerialize(e));
         }
         return rs;
     }
