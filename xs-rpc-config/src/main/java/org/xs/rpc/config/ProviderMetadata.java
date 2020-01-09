@@ -1,4 +1,4 @@
-package org.xs.rpc.config.provider;
+package org.xs.rpc.config;
 
 import java.io.Serializable;
 

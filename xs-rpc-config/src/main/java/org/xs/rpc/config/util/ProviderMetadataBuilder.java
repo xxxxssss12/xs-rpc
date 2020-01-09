@@ -1,7 +1,10 @@
-package org.xs.rpc.config.provider;
+package org.xs.rpc.config.util;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import org.xs.rpc.config.ProviderMetadata;
+import org.xs.rpc.config.provider.MethodConfig;
+import org.xs.rpc.config.provider.ProviderConfig;
+import org.xs.rpc.config.provider.ServiceConfig;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
