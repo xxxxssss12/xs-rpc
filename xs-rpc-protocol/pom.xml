@@ -17,18 +17,18 @@
     </build>
 
     <parent>
-        <groupId>org.cn.xs</groupId>
+        <groupId>name.xs</groupId>
         <artifactId>xs-rpc</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.cn.xs</groupId>
+    <groupId>name.xs</groupId>
     <artifactId>xs-rpc-protocol</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
-            <groupId>org.cn.xs</groupId>
+            <groupId>name.xs</groupId>
             <artifactId>xs-rpc-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
