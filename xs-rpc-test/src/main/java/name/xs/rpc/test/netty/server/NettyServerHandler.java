@@ -8,13 +8,15 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import name.xs.rpc.protocol.Message;
 import name.xs.rpc.protocol.xsp.XspHeader;
 import name.xs.rpc.protocol.xsp.XspMessage;
+import name.xs.rpc.provider.ProviderHandler;
 import name.xs.rpc.test.netty.protocol.ProtocolContext;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-@ChannelHandler.Sharable
+//@ChannelHandler.Sharable
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
+    private ProviderHandler providerHandler;
     private AtomicInteger requestCount = new AtomicInteger(0);
     /**
      * 客户端连接成功时触发
@@ -58,5 +60,13 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         // Close the connection when an exception is raised.
         cause.printStackTrace();
         ctx.close();
+    }
+
+    public ProviderHandler getProviderHandler() {
+        return providerHandler;
+    }
+
+    public void setProviderHandler(ProviderHandler providerHandler) {
+        this.providerHandler = providerHandler;
     }
 }
