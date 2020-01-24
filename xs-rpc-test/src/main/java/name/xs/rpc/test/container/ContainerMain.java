@@ -7,7 +7,7 @@ package name.xs.rpc.test.container;
 public class ContainerMain {
 
     public static void main(String[] args) {
-        Container container = new Container();
+        TestContainer container = new TestContainer();
         container.start();
         container.stop();
     }

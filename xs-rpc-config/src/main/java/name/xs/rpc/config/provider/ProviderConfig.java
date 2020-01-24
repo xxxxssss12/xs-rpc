@@ -60,4 +60,12 @@ public class ProviderConfig {
     public void setExportTimestamp(Long exportTimestamp) {
         this.exportTimestamp = exportTimestamp;
     }
+
+    public Integer getHandleThreadCount() {
+        return handleThreadCount;
+    }
+
+    public void setHandleThreadCount(Integer handleThreadCount) {
+        this.handleThreadCount = handleThreadCount;
+    }
 }

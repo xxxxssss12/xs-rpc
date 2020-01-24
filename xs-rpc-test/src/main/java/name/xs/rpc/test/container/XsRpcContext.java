@@ -10,7 +10,19 @@ import java.util.Map;
  */
 public class XsRpcContext {
 
+    private XsRpcContext() {}
+
+    private static XsRpcContext r = new XsRpcContext();
+    public static XsRpcContext instance() {return r;}
+
     private Map<String, Provider> serviceIdMap;
 
 
+    public Map<String, Provider> getServiceIdMap() {
+        return serviceIdMap;
+    }
+
+    public void setServiceIdMap(Map<String, Provider> serviceIdMap) {
+        this.serviceIdMap = serviceIdMap;
+    }
 }
