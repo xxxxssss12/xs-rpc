@@ -23,7 +23,7 @@ public class XspHeader implements Header {
     /*包的长度, 是base64编码后的包长度*/
     private int length = 1024;
     /*命令*/
-    private int cammand;
+    private int command;
 
     public XspHeader() {
 
@@ -35,7 +35,7 @@ public class XspHeader implements Header {
         this.sessionid = sessionid;
     }
 
-    public XspHeader(byte tag, byte encode, byte encrypt, byte extend1, byte extend2, String sessionid, int length, int cammand) {
+    public XspHeader(byte tag, byte encode, byte encrypt, byte extend1, byte extend2, String sessionid, int length, int command) {
         this.tag = tag;
         this.encode = encode;
         this.encrypt = encrypt;
@@ -43,7 +43,7 @@ public class XspHeader implements Header {
         this.extend2 = extend2;
         this.sessionid = sessionid;
         this.length = length;
-        this.cammand = cammand;
+        this.command = command;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class XspHeader implements Header {
                 ", extend2=" + extend2 +
                 ", sessionid='" + sessionid + '\'' +
                 ", length=" + length +
-                ", cammand=" + cammand +
+                ", cammand=" + command +
                 '}';
     }
 
@@ -116,11 +116,11 @@ public class XspHeader implements Header {
         this.length = length;
     }
 
-    public int getCammand() {
-        return cammand;
+    public int getCommand() {
+        return command;
     }
 
-    public void setCammand(int cammand) {
-        this.cammand = cammand;
+    public void setCommand(int command) {
+        this.command = command;
     }
 }

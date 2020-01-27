@@ -4,7 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import name.xs.rpc.protocol.Message;
 
-public class NettyClientHandler extends ChannelInboundHandlerAdapter {
+public class DemoNettyClientHandler extends ChannelInboundHandlerAdapter {
 
     //接收到数据后调用
     @Override

@@ -7,6 +7,7 @@ package name.xs.rpc.common;
 public enum ErrorEnum {
     SUCCESS("000000", "success"),
     PROXY_01("000001", "can not find instance"),// 没找到实例
+    NETTY_01("001001", "netty client start error"), // netty客户端启动异常
     ;
     private String code;
     private String desc;

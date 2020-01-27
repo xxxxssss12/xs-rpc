@@ -1,4 +1,4 @@
-package name.xs.rpc.test.provider;
+package name.xs.rpc.test.service;
 
 import name.xs.rpc.common.ErrorEnum;
 import name.xs.rpc.common.beans.CommonResult;
@@ -9,14 +9,16 @@ import name.xs.rpc.common.exceptions.XsRpcException;
 import java.lang.reflect.Method;
 
 /**
+ * 本地代理invoker，provider使用
+ *
  * create by xs
  * create time:2019-12-08 22:24:00
  */
-public class JdkProxyProvider<T> implements Provider {
+public class LocalProxyInvoker<T> implements Invoker {
 
     private T instance;
 
-    public JdkProxyProvider(T instance) {
+    public LocalProxyInvoker(T instance) {
         this.instance = instance;
     }
 

@@ -13,6 +13,7 @@ import java.io.UnsupportedEncodingException;
 public class XspMessage implements Message {
     private String data;
     private XspHeader header;
+    private String uuid;
 
 
     public String getData() {
@@ -35,8 +36,9 @@ public class XspMessage implements Message {
         this.header = header;
     }
 
-    public XspMessage(XspHeader header, String data) {
+    public XspMessage(XspHeader header, String uuid, String data) {
         this.header = header;
+        this.uuid = uuid;
         this.data = data;
     }
 
@@ -58,7 +60,7 @@ public class XspMessage implements Message {
 
             byte[] bbb = data.getBytes("UTF-8");
             out.write(intToBytes2(bbb.length));
-            out.write(intToBytes2(header.getCammand()));
+            out.write(intToBytes2(header.getCommand()));
             out.write(bbb);
             out.write('\n');
         } catch (UnsupportedEncodingException e) {
@@ -101,5 +103,14 @@ public class XspMessage implements Message {
         src[2] = (byte) ((value >> 8) & 0xFF);
         src[3] = (byte) (value & 0xFF);
         return src;
+    }
+
+    @Override
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

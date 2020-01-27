@@ -17,13 +17,15 @@ public class XspMessageBuilder implements MessageBuilder {
     public Message buildMessage(String data) {
         try {
             byte[] bodyArr = Base64Utils.encode(data, XspConstant.CHARSET);
+            String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+
             XspHeader header = new XspHeader(XspConstant.PACKAGE_TAG,
                     ByteArrUtils.ZERO_ASCII,
                     ByteArrUtils.ZERO_ASCII,
                     ByteArrUtils.ZERO_ASCII,
                     ByteArrUtils.ZERO_ASCII,
-                    UUID.randomUUID().toString().replaceAll("-", ""), bodyArr.length, ByteArrUtils.ZERO_ASCII);
-            Message msg = new XspMessage(header, data);
+                    uuid, bodyArr.length, ByteArrUtils.ZERO_ASCII);
+            Message msg = new XspMessage(header, uuid, data);
             return msg;
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

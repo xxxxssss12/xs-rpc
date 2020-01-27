@@ -33,7 +33,7 @@ public class XspEncoder implements Encoder {
         headers.add(header.getExtend2());
         headers.addAll(Objects.requireNonNull(ByteArrUtils.strToBytes(header.getSessionid())));
         headers.addAll(Arrays.asList(ByteArrUtils.intToBytes(header.getLength())));
-        headers.addAll(Arrays.asList(ByteArrUtils.intToBytes(header.getCammand())));
+        headers.addAll(Arrays.asList(ByteArrUtils.intToBytes(header.getCommand())));
         Byte[] headerArr = new Byte[45];
         headers.toArray(headerArr);
         byte[] bodyArr = null;

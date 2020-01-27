@@ -7,7 +7,7 @@ import name.xs.rpc.protocol.Message;
  */
 public class JlspMessage implements Message {
     private String data;
-
+    private String uuid;
     public JlspMessage(String data) {
         this.data = data;
     }
@@ -19,5 +19,14 @@ public class JlspMessage implements Message {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    @Override
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

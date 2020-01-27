@@ -43,7 +43,7 @@ public class XspDecoder implements Decoder {
         }
         // message封装
         XspHeader header = new XspHeader(tag, encode, encrypt, extend1, extend2, sessionId, length, command);
-        XspMessage message = new XspMessage(header, dataStr);
+        XspMessage message = new XspMessage(header, sessionId, dataStr);
         return message;
     }
 

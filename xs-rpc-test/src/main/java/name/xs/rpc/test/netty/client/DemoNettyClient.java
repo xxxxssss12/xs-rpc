@@ -18,7 +18,7 @@ import name.xs.rpc.test.netty.protocol.ProtocolContext;
 
 import java.util.Scanner;
 
-public class NettyClient {
+public class DemoNettyClient {
     static final boolean SSL = System.getProperty("ssl") != null;
     static final String HOST = System.getProperty("host", "127.0.0.1");
     static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
@@ -64,7 +64,7 @@ public class NettyClient {
                             p.addLast(new DelimiterBasedFrameDecoder(32 * 1024,delemiter));
                             p.addLast(ProtocolContext.getDecoder());
                             p.addLast(ProtocolContext.getEncoder());
-                            p.addLast(new NettyClientHandler());
+                            p.addLast(new DemoNettyClientHandler());
                         }
                     });
 

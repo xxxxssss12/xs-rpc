@@ -11,10 +11,11 @@ import name.xs.rpc.protocol.xsp.XspMessage;
 import name.xs.rpc.provider.ProviderHandler;
 import name.xs.rpc.test.netty.protocol.ProtocolContext;
 
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicInteger;
 
 //@ChannelHandler.Sharable
-public class NettyServerHandler extends ChannelInboundHandlerAdapter {
+public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter {
 
     private ProviderHandler providerHandler;
     private AtomicInteger requestCount = new AtomicInteger(0);
@@ -42,8 +43,9 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
         //此处写接收到客户端请求后的业务逻辑
         String content = "[server]hello world,this is nettyServer,request count=" + requestCount.incrementAndGet();
-        XspHeader header = new XspHeader((byte) 0, (byte) 1, (byte) 1, (byte) 1, (byte) 0, "713f17ca614361fb257dc6741332caf2", content.getBytes("UTF-8").length, 1);
-        Message message = new XspMessage(header, content);
+        String uuid = "713f17ca614361fb257dc6741332caf2";
+        XspHeader header = new XspHeader((byte) 0, (byte) 1, (byte) 1, (byte) 1, (byte) 0, uuid, content.getBytes(StandardCharsets.UTF_8).length, 1);
+        Message message = new XspMessage(header, uuid, content);
         ctx.writeAndFlush(message);
         System.out.println("服务端响应：" + message.getData());
     }
