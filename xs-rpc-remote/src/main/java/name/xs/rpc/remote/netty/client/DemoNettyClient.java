@@ -1,4 +1,4 @@
-package name.xs.rpc.test.netty.client;
+package name.xs.rpc.remote.netty.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -14,7 +14,7 @@ import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import name.xs.rpc.protocol.Message;
-import name.xs.rpc.test.netty.protocol.ProtocolContext;
+import name.xs.rpc.remote.netty.protocol.ProtocolContext;
 
 import java.util.Scanner;
 

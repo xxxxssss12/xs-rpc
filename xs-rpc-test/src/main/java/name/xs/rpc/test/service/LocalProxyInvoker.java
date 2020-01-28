@@ -1,6 +1,6 @@
 package name.xs.rpc.test.service;
 
-import name.xs.rpc.common.ErrorEnum;
+import name.xs.rpc.common.enums.ErrorEnum;
 import name.xs.rpc.common.beans.CommonResult;
 import name.xs.rpc.common.beans.Result;
 import name.xs.rpc.common.beans.XsRpcExceptionSerialize;

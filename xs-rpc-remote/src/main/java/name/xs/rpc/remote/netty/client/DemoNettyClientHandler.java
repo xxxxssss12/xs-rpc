@@ -1,4 +1,4 @@
-package name.xs.rpc.test.netty.client;
+package name.xs.rpc.remote.netty.client;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

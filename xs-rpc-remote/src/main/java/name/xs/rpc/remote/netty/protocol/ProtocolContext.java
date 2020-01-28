@@ -1,4 +1,4 @@
-package name.xs.rpc.test.netty.protocol;
+package name.xs.rpc.remote.netty.protocol;
 
 import name.xs.rpc.protocol.MessageBuilder;
 import name.xs.rpc.protocol.jlsp.JlspConstant;

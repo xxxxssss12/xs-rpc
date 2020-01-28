@@ -1,6 +1,6 @@
 package name.xs.rpc.common.exceptions;
 
-import name.xs.rpc.common.ErrorEnum;
+import name.xs.rpc.common.enums.ErrorEnum;
 
 /**
  * create by xs

@@ -11,4 +11,6 @@ public class Constant {
     public static final String LOGGER_NAME = "XSRPC";
 
     public static final Logger LOG = LoggerFactory.getLogger(LOGGER_NAME);
+
+    public static final int CPU_NUM = Runtime.getRuntime().availableProcessors();
 }

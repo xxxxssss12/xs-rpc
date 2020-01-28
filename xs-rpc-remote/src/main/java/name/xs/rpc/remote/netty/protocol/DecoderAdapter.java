@@ -1,4 +1,4 @@
-package name.xs.rpc.test.netty.protocol;
+package name.xs.rpc.remote.netty.protocol;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

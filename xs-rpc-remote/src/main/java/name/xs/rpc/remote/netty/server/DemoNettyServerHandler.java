@@ -1,4 +1,4 @@
-package name.xs.rpc.test.netty.server;
+package name.xs.rpc.remote.netty.server;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -9,7 +9,7 @@ import name.xs.rpc.protocol.Message;
 import name.xs.rpc.protocol.xsp.XspHeader;
 import name.xs.rpc.protocol.xsp.XspMessage;
 import name.xs.rpc.provider.ProviderHandler;
-import name.xs.rpc.test.netty.protocol.ProtocolContext;
+import name.xs.rpc.remote.netty.protocol.ProtocolContext;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicInteger;

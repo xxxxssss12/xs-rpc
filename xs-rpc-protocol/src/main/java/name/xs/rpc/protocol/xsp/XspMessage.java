@@ -13,8 +13,7 @@ import java.io.UnsupportedEncodingException;
 public class XspMessage implements Message {
     private String data;
     private XspHeader header;
-    private String uuid;
-
+    private String sessionId;
 
     public String getData() {
         return data;
@@ -36,9 +35,9 @@ public class XspMessage implements Message {
         this.header = header;
     }
 
-    public XspMessage(XspHeader header, String uuid, String data) {
+    public XspMessage(XspHeader header, String sessionId, String data) {
         this.header = header;
-        this.uuid = uuid;
+        this.sessionId = sessionId;
         this.data = data;
     }
 
@@ -106,11 +105,13 @@ public class XspMessage implements Message {
     }
 
     @Override
-    public String getUuid() {
-        return uuid;
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+
+    public void setSessionId(String uuid) {
+        this.sessionId = sessionId;
     }
+
 }

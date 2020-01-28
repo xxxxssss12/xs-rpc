@@ -16,6 +16,7 @@
         <commons-codes.version>1.12</commons-codes.version>
         <slf4j-api.version>1.7.26</slf4j-api.version>
         <snakeyaml.version>1.25</snakeyaml.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
     </properties>
 
     <modules>

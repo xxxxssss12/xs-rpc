@@ -10,5 +10,5 @@ public interface Message extends Serializable {
 
     String getData();
 
-    String getUuid();
+    String getSessionId();
 }

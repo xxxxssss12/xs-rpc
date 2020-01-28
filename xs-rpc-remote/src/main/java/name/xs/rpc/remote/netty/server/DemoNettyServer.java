@@ -1,4 +1,4 @@
-package name.xs.rpc.test.netty.server;
+package name.xs.rpc.remote.netty.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
@@ -17,7 +17,7 @@ import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
 
-import name.xs.rpc.test.netty.protocol.ProtocolContext;
+import name.xs.rpc.remote.netty.protocol.ProtocolContext;
 
 public class DemoNettyServer {
     static final boolean SSL = System.getProperty("ssl") != null;
