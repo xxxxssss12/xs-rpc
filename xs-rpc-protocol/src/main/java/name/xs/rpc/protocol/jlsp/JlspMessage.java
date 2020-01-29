@@ -8,8 +8,9 @@ import name.xs.rpc.protocol.Message;
 public class JlspMessage implements Message {
     private String data;
     private String sessionId;
-    public JlspMessage(String data) {
+    public JlspMessage(String data, String sessionId) {
         this.data = data;
+        this.sessionId = sessionId;
     }
 
     @Override

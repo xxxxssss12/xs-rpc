@@ -33,6 +33,10 @@ public class XsRpcNettyClient implements Client {
 
     private ChannelFuture channel;
     private EventLoopGroup group;
+
+    public XsRpcNettyClient(String host, Integer port, ClientHandler handler) {
+        start(host, port, handler);
+    }
     @Override
     public void start(String host, Integer port, ClientHandler handler) {
         Constant.LOG.info("[XsRpcNettyClient] do start...");

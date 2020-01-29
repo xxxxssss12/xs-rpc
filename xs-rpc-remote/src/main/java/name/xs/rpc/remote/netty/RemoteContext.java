@@ -43,6 +43,9 @@ public class RemoteContext {
         clientMap.remove(host + ":" + port);
     }
 
+    public Client getClient(String host, Integer port) {
+        return clientMap.get(host + ":" + port);
+    }
     public ThreadPoolExecutor getRequestThreadPool() {
         return requestThreadPool;
     }
@@ -56,10 +59,16 @@ public class RemoteContext {
     }
 
     public void requestFinish(RequestingDto dto) {
+        if (dto == null) {
+            return;
+        }
         this.requestingMap.remove(dto.getRequestMessage().getSessionId());
     }
 
     public RequestingDto getRequestingDto(String sessionId) {
+        if (sessionId == null) {
+            return null;
+        }
         return this.requestingMap.get(sessionId);
     }
 }

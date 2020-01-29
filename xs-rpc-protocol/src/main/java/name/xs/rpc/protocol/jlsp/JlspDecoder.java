@@ -16,13 +16,17 @@ public class JlspDecoder implements Decoder {
 
         try {
             if (data.length < 4) {
-                return new JlspMessage(new String(data, JlspConstant.CHARSET));
+                return new JlspMessage(new String(data, JlspConstant.CHARSET), "00000000000000000000000000000000");
             }
             byte[] seperator = ByteArrUtils.getBytes(data, data.length-4, 4);
+            byte[] sessionId = ByteArrUtils.getBytes(data, 0, 32);
             if (ByteArrUtils.equals(seperator, JlspConstant.SEPERATOR)) {
-                return new JlspMessage(new String(ByteArrUtils.getBytes(data, 0, data.length-4), JlspConstant.CHARSET));
+                byte[] realData = ByteArrUtils.getBytes(data, 32, data.length - 36);
+                return new JlspMessage(new String(realData, JlspConstant.CHARSET), new String(sessionId, JlspConstant.CHARSET));
+            } else {
+                byte[] realData = ByteArrUtils.getBytes(data, 32, data.length - 32);
+                return new JlspMessage(new String(realData, JlspConstant.CHARSET), new String(sessionId, JlspConstant.CHARSET));
             }
-            return new JlspMessage(new String(data, JlspConstant.CHARSET));
         } catch (UnsupportedEncodingException e) {
             throw new ProtocolException(e.getMessage());
         }

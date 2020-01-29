@@ -46,6 +46,6 @@ public class DecoderAdapter extends ByteToMessageDecoder {
             msg = decoder.decode(bt);
         }
         out.add(msg);      //Read integer from inbound ByteBuf, add to the List of decodec messages
-        System.out.println("do encoder..msg=" + msg.getData());
+        System.out.println("do decoder..msg=" + msg.getData());
     }
 }

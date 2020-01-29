@@ -1,5 +1,6 @@
 package name.xs.rpc.common.exceptions;
 
+import name.xs.rpc.common.beans.XsRpcExceptionSerialize;
 import name.xs.rpc.common.enums.ErrorEnum;
 
 /**
@@ -9,6 +10,12 @@ import name.xs.rpc.common.enums.ErrorEnum;
 public class XsRpcException extends RuntimeException {
 
     public XsRpcException(ErrorEnum error) {
-        super(error.getDesc());
+        super(error.getCode() + ": " + error.getDesc());
+    }
+
+    public XsRpcException(ErrorEnum error, XsRpcExceptionSerialize remoteExceptionInfo) {
+        super(error.getCode() + ": " + error.getDesc()
+                + (remoteExceptionInfo == null ? "" : ";remoteExceptionClass: " + remoteExceptionInfo.getClassName())
+                + (remoteExceptionInfo == null ? "" : "; remoteExceptionMsg: " + remoteExceptionInfo.getMessage()));
     }
 }

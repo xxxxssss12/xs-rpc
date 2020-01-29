@@ -1,6 +1,6 @@
 package name.xs.rpc.test.container;
 
-import name.xs.rpc.test.service.Invoker;
+import name.xs.rpc.test.invoke.Invoker;
 
 import java.util.Map;
 
@@ -13,11 +13,12 @@ public class XsRpcContext {
     private XsRpcContext() {}
 
     private static XsRpcContext r = new XsRpcContext();
+
     public static XsRpcContext instance() {return r;}
 
     /**
      * key为interfaceName
      */
-    private Map<String, Invoker> serviceMap;
+    private Map<String, Object> originInstanceMap;
 
 }

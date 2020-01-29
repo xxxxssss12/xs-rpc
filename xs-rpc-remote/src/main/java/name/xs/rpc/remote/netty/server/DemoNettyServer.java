@@ -21,7 +21,7 @@ import name.xs.rpc.remote.netty.protocol.ProtocolContext;
 
 public class DemoNettyServer {
     static final boolean SSL = System.getProperty("ssl") != null;
-    static final int PORT = Integer.parseInt(System.getProperty("port", "8007"));
+    static final int PORT = Integer.parseInt(System.getProperty("port", "10000"));
 
     public static void main(String[] args) throws Exception {
         System.out.println("EchoServer.main start");

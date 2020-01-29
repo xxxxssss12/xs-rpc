@@ -4,6 +4,7 @@ import name.xs.rpc.protocol.Encoder;
 import name.xs.rpc.protocol.Message;
 
 import java.net.ProtocolException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * create by xs, 2019-07-14 22:13
@@ -11,11 +12,18 @@ import java.net.ProtocolException;
 public class JlspEncoder implements Encoder {
     @Override
     public byte[] encode(Message msg) throws ProtocolException {
-        String str = msg.getData();
-        byte[] dataArr = str.getBytes();
-        byte[] result = new byte[dataArr.length + JlspConstant.SEPERATOR.length];
-        System.arraycopy(dataArr, 0, result, 0, dataArr.length);
-        System.arraycopy(JlspConstant.SEPERATOR, 0, result, dataArr.length, JlspConstant.SEPERATOR.length);
-        return result;
+        try {
+            String str = msg.getData();
+            String sessionId = msg.getSessionId();
+            byte[] dataArr = str.getBytes(JlspConstant.CHARSET);
+            byte[] sessionArr = sessionId.getBytes(JlspConstant.CHARSET);
+            byte[] result = new byte[sessionId.length() + dataArr.length + JlspConstant.SEPERATOR.length];
+            System.arraycopy(sessionArr, 0, result, 0, sessionArr.length);
+            System.arraycopy(dataArr, 0, result, sessionArr.length, dataArr.length);
+            System.arraycopy(JlspConstant.SEPERATOR, 0, result, dataArr.length + sessionArr.length, JlspConstant.SEPERATOR.length);
+            return result;
+        } catch (Exception e) {
+            throw new ProtocolException(e.getMessage());
+        }
     }
 }

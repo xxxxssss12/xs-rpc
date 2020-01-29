@@ -6,4 +6,5 @@ package name.xs.rpc.protocol;
 public interface MessageBuilder {
 
     Message buildMessage(String data);
+    Message buildMessage(String data, String sessionId);
 }
