@@ -1,4 +1,6 @@
-package name.xs.rpc.test.proxy;
+package name.xs.rpc.test;
+
+import name.xs.rpc.test.proxy.ProxyFactory;
 
 /**
  * create by xs

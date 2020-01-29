@@ -1,12 +1,12 @@
-package name.xs.rpc.test.invoke;
+package name.xs.rpc.proxy.invoke;
 
 import com.alibaba.fastjson.JSON;
 import name.xs.rpc.common.beans.CommonRequest;
 import name.xs.rpc.common.beans.CommonResult;
 import name.xs.rpc.common.beans.Result;
+import name.xs.rpc.common.utils.TypeConvertUtils;
 import name.xs.rpc.config.ProviderMetadata;
 import name.xs.rpc.protocol.Message;
-import name.xs.rpc.protocol.xsp.XspMessageBuilder;
 import name.xs.rpc.remote.Client;
 import name.xs.rpc.remote.netty.RemoteContext;
 import name.xs.rpc.remote.netty.client.XsRpcNettyClient;
@@ -75,40 +75,9 @@ public class RemoteInvoker<T> extends AbstractProxyInvoker<T> {
         request.setServiceId(metadata.getServiceId());
         request.setServiceInterfaceName(metadata.getInterfaceName());
         request.setSignatures("");
-        request.setArguments(objArr2StrArr(arguments));
-        request.setParameterTypes(classArr2StrArr(parameterTypes));
+        request.setArguments(TypeConvertUtils.objArr2StrArr(arguments));
+        request.setParameterTypes(TypeConvertUtils.classArr2StrArr(parameterTypes));
         return request;
     }
 
-    private String[] classArr2StrArr(Class<?>[] parameterTypes) {
-        if (parameterTypes != null && parameterTypes.length != 0) {
-            String[] paramTypes = new String[parameterTypes.length];
-            for (int i=0; i<parameterTypes.length; i++) {
-                Class<?> parameterType = parameterTypes[i];
-                if (parameterType != null) {
-                    paramTypes[i] = parameterType.getName();
-                }
-            }
-            return paramTypes;
-        } else {
-            return new String[0];
-        }
-    }
-
-    private String[] objArr2StrArr(Object[] arguments) {
-        if (arguments != null && arguments.length > 0) {
-            String[] args = new String[arguments.length];
-            for (int i=0; i<arguments.length; i++) {
-                Object arg = arguments[i];
-                if (arg != null) {
-                    args[i] = JSON.toJSONString(arg);
-                } else {
-                    args[i] = null;
-                }
-            }
-            return args;
-        } else {
-            return new String[0];
-        }
-    }
 }

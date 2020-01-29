@@ -1,4 +1,4 @@
-package name.xs.rpc.test.proxy;
+package name.xs.rpc.test;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;

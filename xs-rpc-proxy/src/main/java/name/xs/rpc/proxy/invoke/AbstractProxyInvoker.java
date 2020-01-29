@@ -1,5 +1,6 @@
-package name.xs.rpc.test.invoke;
+package name.xs.rpc.proxy.invoke;
 
+import name.xs.rpc.common.Invoker;
 import name.xs.rpc.common.beans.Result;
 import name.xs.rpc.common.enums.ErrorEnum;
 import name.xs.rpc.common.exceptions.XsRpcException;

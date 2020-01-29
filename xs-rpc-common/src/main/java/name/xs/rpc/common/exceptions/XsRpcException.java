@@ -15,7 +15,7 @@ public class XsRpcException extends RuntimeException {
 
     public XsRpcException(ErrorEnum error, XsRpcExceptionSerialize remoteExceptionInfo) {
         super(error.getCode() + ": " + error.getDesc()
-                + (remoteExceptionInfo == null ? "" : ";remoteExceptionClass: " + remoteExceptionInfo.getClassName())
+                + (remoteExceptionInfo == null ? "" : "; remoteExceptionClass: " + remoteExceptionInfo.getClassName())
                 + (remoteExceptionInfo == null ? "" : "; remoteExceptionMsg: " + remoteExceptionInfo.getMessage()));
     }
 }

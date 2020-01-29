@@ -20,13 +20,11 @@
     </properties>
 
     <modules>
-        <module>xs-rpc-core</module><!-- 元数据格式定义 -->
         <module>xs-rpc-common</module><!-- 一些工具方法 -->
         <module>xs-rpc-remote</module><!-- 远程通信框架 -->
         <module>xs-rpc-protocol</module><!-- 协议：http/自定义 -->
-        <module>xs-rpc-consumer</module><!-- 服务消费方 -->
-        <module>xs-rpc-provider</module><!-- 服务提供方 -->
         <module>xs-rpc-config</module><!-- 配置信息存放位置 -->
+        <module>xs-rpc-proxy</module>
         <module>xs-rpc-test</module>
     </modules>
 

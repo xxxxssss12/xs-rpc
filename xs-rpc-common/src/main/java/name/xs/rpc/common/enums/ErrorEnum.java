@@ -18,6 +18,7 @@ public enum ErrorEnum {
     NETTY_07("001007", "request unknown exception"), // 未知异常
     PROTOCOL_01("002001", "sessionId length error"), // sessionId长度不正确
     SERVER_01("003001", "client request format wrong"), // 客户端请求格式错误
+    SERVER_02("003002", "provider instance not fount"), // 没有找到实现类
     ;
     private String code;
     private String desc;

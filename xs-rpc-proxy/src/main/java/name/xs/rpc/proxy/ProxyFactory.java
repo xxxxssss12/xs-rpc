@@ -1,10 +1,9 @@
-package name.xs.rpc.test.proxy;
+package name.xs.rpc.proxy;
 
-import name.xs.rpc.test.invoke.LocalProxyInvoker;
-import name.xs.rpc.test.invoke.RemoteInvoker;
+import name.xs.rpc.common.context.ProxyContext;
+import name.xs.rpc.proxy.invoke.LocalProxyInvoker;
+import name.xs.rpc.proxy.invoke.RemoteInvoker;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,9 +13,6 @@ import java.util.Map;
  * create time:2019-07-15 16:09:28
  */
 public class ProxyFactory {
-    private static Map<String, Object> orginObjMap = new HashMap<>();
-    private static Map<String, Object> localProxyObjMap = new HashMap<>();
-    private static Map<String, Object> remoteProxyObjMap = new HashMap<>();
 
     public static <T> T getLocalProxy(final Class<T> clazz) throws Throwable {
         return getProxyInstance(clazz, false);
@@ -26,10 +22,10 @@ public class ProxyFactory {
         return getProxyInstance(interfase, true);
     }
     private static <T> T getOriInstance(Class<T> clazz) throws Throwable {
-        T obj = (T) orginObjMap.get(clazz.getInterfaces()[0].getName());
+        T obj = (T) ProxyContext.instance().getOrginObjMap().get(clazz.getInterfaces()[0].getName());
         if (obj == null) {
             obj = clazz.getConstructor().newInstance();
-            orginObjMap.put(clazz.getInterfaces()[0].getName(), obj);
+            ProxyContext.instance().getOrginObjMap().put(clazz.getInterfaces()[0].getName(), obj);
         }
         return obj;
     }
@@ -38,11 +34,11 @@ public class ProxyFactory {
         Object obj = null;
         if (!isRemote) {
             // 优先本地
-            obj = localProxyObjMap.get(clazz.getInterfaces()[0].getName());
-        } else if (localProxyObjMap.get(clazz.getName()) != null) {
-            obj = localProxyObjMap.get(clazz.getName());
+            obj = ProxyContext.instance().getLocalProxyObjMap().get(clazz.getInterfaces()[0].getName());
+        } else if (ProxyContext.instance().getLocalProxyObjMap().get(clazz.getName()) != null) {
+            obj = ProxyContext.instance().getLocalProxyObjMap().get(clazz.getName());
         } else {
-            obj = remoteProxyObjMap.get(clazz.getName());
+            obj = ProxyContext.instance().getRemoteProxyObjMap().get(clazz.getName());
         }
         if (obj == null) {
             //参数一：被代理对象的类加载器，固定写法
@@ -56,11 +52,11 @@ public class ProxyFactory {
                          * 参数三：代理对象调用的方法的参数
                          */
                         new LocalProxyInvoker<>(getOriInstance(clazz)));
-                localProxyObjMap.put(clazz.getInterfaces()[0].getName(), obj);
+                ProxyContext.instance().getLocalProxyObjMap().put(clazz.getInterfaces()[0].getName(), obj);
             } else {
                 obj = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz},
                         new RemoteInvoker<>(clazz));
-                remoteProxyObjMap.put(clazz.getName(), obj);
+                ProxyContext.instance().getRemoteProxyObjMap().put(clazz.getName(), obj);
             }
         }
         return (T) obj;

@@ -1,7 +1,5 @@
 package name.xs.rpc.test.container;
 
-import name.xs.rpc.test.invoke.Invoker;
-
 import java.util.Map;
 
 /**

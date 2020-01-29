@@ -1,4 +1,4 @@
-package name.xs.rpc.test.invoke;
+package name.xs.rpc.proxy.invoke;
 
 import name.xs.rpc.common.constants.Constant;
 import name.xs.rpc.common.enums.ErrorEnum;
@@ -6,9 +6,7 @@ import name.xs.rpc.common.beans.CommonResult;
 import name.xs.rpc.common.beans.Result;
 import name.xs.rpc.common.beans.XsRpcExceptionSerialize;
 import name.xs.rpc.common.exceptions.XsRpcException;
-import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
@@ -28,7 +26,7 @@ public class LocalProxyInvoker<T> extends AbstractProxyInvoker<T>  {
     /**
      * 执行调用
      *
-     * @param methodName 方法名
+     * @param method 方法
      * @param parameterTypes 参数类型list
      * @param arguments 参数list
      * @return org.xs.rpc.common.beans.Result

@@ -1,4 +1,4 @@
-package name.xs.rpc.test.invoke;
+package name.xs.rpc.common;
 
 import name.xs.rpc.common.beans.Result;
 
