@@ -5,8 +5,6 @@ import name.xs.rpc.proxy.invoke.LocalProxyInvoker;
 import name.xs.rpc.proxy.invoke.RemoteInvoker;
 
 import java.lang.reflect.Proxy;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * create by xs
@@ -14,14 +12,14 @@ import java.util.Map;
  */
 public class ProxyFactory {
 
-    public static <T> T getLocalProxy(final Class<T> clazz) throws Throwable {
+    public static <T> T getLocalProxy(final Class<T> clazz) throws Exception {
         return getProxyInstance(clazz, false);
     }
 
-    public static <T> T getRemoteProxy(final Class<T> interfase) throws Throwable {
+    public static <T> T getRemoteProxy(final Class<T> interfase) throws Exception {
         return getProxyInstance(interfase, true);
     }
-    private static <T> T getOriInstance(Class<T> clazz) throws Throwable {
+    private static <T> T getOriInstance(Class<T> clazz) throws Exception {
         T obj = (T) ProxyContext.instance().getOrginObjMap().get(clazz.getInterfaces()[0].getName());
         if (obj == null) {
             obj = clazz.getConstructor().newInstance();
@@ -30,7 +28,7 @@ public class ProxyFactory {
         return obj;
     }
 
-    private static <T> T getProxyInstance(Class<T> clazz, boolean isRemote) throws Throwable {
+    private static <T> T getProxyInstance(Class<T> clazz, boolean isRemote) throws Exception {
         Object obj = null;
         if (!isRemote) {
             // 优先本地

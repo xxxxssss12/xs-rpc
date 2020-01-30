@@ -3,6 +3,7 @@ package name.xs.rpc.remote.netty.server;
 import com.alibaba.fastjson.JSON;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import name.xs.rpc.common.beans.CommonRequest;
@@ -17,13 +18,15 @@ import name.xs.rpc.protocol.Message;
 import name.xs.rpc.protocol.xsp.XspHeader;
 import name.xs.rpc.protocol.xsp.XspMessage;
 import name.xs.rpc.protocol.xsp.XspMessageBuilder;
+import name.xs.rpc.remote.ServerHandler;
 import name.xs.rpc.remote.netty.protocol.ProtocolContext;
 
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter {
+@ChannelHandler.Sharable
+public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter implements ServerHandler {
 
 //    private ProviderHandler providerHandler;
     private AtomicInteger requestCount = new AtomicInteger(0);
@@ -34,42 +37,44 @@ public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        byte data[] = ProtocolContext.getEncoder().getEncoder().encode(
-            ProtocolContext.getMessageBuilder().buildMessage("[server]connect success!")
-        );
-//        ByteBuf buf = Unpooled.buffer(data.length); // netty自定义缓存
-//        buf.writeBytes(data);
-//        ctx.writeAndFlush(buf);
-        System.out.println("客户端连入：" + ctx.channel().remoteAddress().toString());
+        Constant.LOG.info("[DemoNettyServerHandler] 客户端连入：" + ctx.channel().remoteAddress().toString());
     }
     // 接受请求后处理类
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        String sessionId = null;
         try {
             if (msg instanceof Message) {
                 Message msg1 = (Message) msg;
+                Constant.LOG.info("[DemoNettyServerHandler] 客户端发送数据：" + JSON.toJSONString(msg));
+                sessionId = msg1.getSessionId();
                 CommonRequest request = JSON.parseObject(msg1.getData(), CommonRequest.class);
                 CommonResult result = doInvoke(request);
                 //此处写接收到客户端请求后的业务逻辑
                 String content = JSON.toJSONString(result);
-                String uuid = msg1.getSessionId();
 
-                Message message = ProtocolContext.getMessageBuilder().buildMessage(content, uuid);
+
+                Message message = ProtocolContext.getMessageBuilder().buildMessage(content, sessionId);
                 ctx.writeAndFlush(message);
-                System.out.println("服务端响应：" + message.getData());
+                Constant.LOG.info("[DemoNettyServerHandler] 服务端响应：" + message.getData());
             } else {
                 throw new XsRpcException(ErrorEnum.SERVER_01);
             }
         } catch (Exception e) {
-            Constant.LOG.error("server invoke error!", e);
+            Constant.LOG.error("[DemoNettyServerHandler] server invoke error", e);
             CommonResult result = new CommonResult();
             XsRpcExceptionSerialize serialize = new XsRpcExceptionSerialize();
             serialize.setClassName(e.getClass().getName());
             serialize.setMessage(e.getMessage());
             result.setException(serialize);
-            Message message = ProtocolContext.getMessageBuilder().buildMessage(JSON.toJSONString(result));
+            Message message = null;
+            if (sessionId != null) {
+                message = ProtocolContext.getMessageBuilder().buildMessage(JSON.toJSONString(result), sessionId);
+            } else {
+                message = ProtocolContext.getMessageBuilder().buildMessage(JSON.toJSONString(result));
+            }
             ctx.writeAndFlush(message);
-            System.out.println("服务端响应：" + message.getData());
+            Constant.LOG.info("[DemoNettyServerHandler] 服务端响应：" + message.getData());
         }
     }
 

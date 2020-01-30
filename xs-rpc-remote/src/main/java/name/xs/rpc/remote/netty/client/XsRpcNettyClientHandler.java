@@ -21,8 +21,10 @@ public class XsRpcNettyClientHandler extends ChannelInboundHandlerAdapter implem
             Message msg1 = (Message) msg;
             Constant.LOG.info(msg1.getData());
             RequestingDto requestingDto = RemoteContext.instance().getRequestingDto(msg1.getSessionId());
-            requestingDto.setResponseMessage(msg1);
-            requestingDto.getCountDownLatch().countDown();
+            if (requestingDto != null) {
+                requestingDto.setResponseMessage(msg1);
+                requestingDto.getCountDownLatch().countDown();
+            }
         } else {
             Constant.LOG.error("[client] unknown msg");
         }

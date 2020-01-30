@@ -60,7 +60,7 @@ public class TypeConvertUtils {
 
     public static Object[] strArr2objArr(String[] argumentStrArr, Class<?>[] argTypes) {
         if (argumentStrArr != null && argumentStrArr.length > 0) {
-            Object[] args = new String[argumentStrArr.length];
+            Object[] args = new Object[argumentStrArr.length];
             for (int i=0; i<argumentStrArr.length; i++) {
                 String argStr = argumentStrArr[i];
                 if (argStr != null) {
@@ -96,7 +96,7 @@ public class TypeConvertUtils {
             for (int i=0; i<parameterTypes.length; i++) {
                 String parameterTypeStr = parameterTypes[i];
                 if (parameterTypeStr != null) {
-                    typeArr[i] = Class.forName(parameterTypeStr);
+                    typeArr[i] = getClassForName(parameterTypeStr);
                 }
             }
             return typeArr;
@@ -105,8 +105,64 @@ public class TypeConvertUtils {
         }
     }
 
+    private static Class<?> getClassForName(String baseClassName) throws ClassNotFoundException {
+        if ("int".equals(baseClassName)) {
+            return int.class;
+        }
+        if ("byte".equals(baseClassName)) {
+            return byte.class;
+        }
+        if ("short".equals(baseClassName)) {
+            return short.class;
+        }
+        if ("long".equals(baseClassName)) {
+            return long.class;
+        }
+        if ("boolean".equals(baseClassName)) {
+            return boolean.class;
+        }
+        if ("char".equals(baseClassName)) {
+            return char.class;
+        }
+        if ("float".equals(baseClassName)) {
+            return float.class;
+        }
+        if ("double".equals(baseClassName)) {
+            return double.class;
+        }
+        return Class.forName(baseClassName);
+    }
+
     public static void main(String[] args) {
         String obj = "1";
         System.out.println(JSON.parseObject(obj, Integer.class));
+    }
+
+    public static String convert2pkgType(String baseClassName) {
+        if ("int".equals(baseClassName)) {
+            return "java.lang.Integer";
+        }
+        if ("byte".equals(baseClassName)) {
+            return "java.lang.Byte";
+        }
+        if ("short".equals(baseClassName)) {
+            return "java.lang.Short";
+        }
+        if ("long".equals(baseClassName)) {
+            return "java.lang.Long";
+        }
+        if ("boolean".equals(baseClassName)) {
+            return "java.lang.Boolean";
+        }
+        if ("char".equals(baseClassName)) {
+            return "java.lang.Character";
+        }
+        if ("float".equals(baseClassName)) {
+            return "java.lang.Float";
+        }
+        if ("double".equals(baseClassName)) {
+            return "java.lang.Double";
+        }
+        return baseClassName;
     }
 }

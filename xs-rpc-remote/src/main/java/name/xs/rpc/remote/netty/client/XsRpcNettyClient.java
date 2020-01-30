@@ -65,7 +65,7 @@ public class XsRpcNettyClient implements Client {
                             // 分隔符配置
                             ByteBuf delemiter = Unpooled.copiedBuffer(ProtocolContext.getSeperateCharacter());
                             ChannelPipeline p = ch.pipeline();
-                            p.addLast(new LoggingHandler(LogLevel.INFO));
+                            p.addLast(new LoggingHandler(LogLevel.ERROR));
                             p.addLast(new DelimiterBasedFrameDecoder(32 * 1024, delemiter));
                             p.addLast(ProtocolContext.getDecoder());
                             p.addLast(ProtocolContext.getEncoder());
@@ -93,7 +93,7 @@ public class XsRpcNettyClient implements Client {
             t.start();
             c.await();
             RemoteContext.instance().addClient(host, port, this);
-            Constant.LOG.info("[XsRpcNettyClient] do start... over!");
+            Constant.LOG.info("[XsRpcNettyClient] do start... finish!remote:host={}, port={}", host, port);
 //            return f;
         } catch (InterruptedException e) {
             Constant.LOG.error("[XsRpcNettyClient] do start... error!", e);
@@ -109,7 +109,7 @@ public class XsRpcNettyClient implements Client {
             InetSocketAddress address = (InetSocketAddress) channel.channel().remoteAddress();
             host = address.getHostName();
             port = address.getPort();
-            channel.channel().parent().close();
+            channel.channel().close();
         }
         if (group != null) {
             group.shutdownGracefully();
@@ -123,7 +123,7 @@ public class XsRpcNettyClient implements Client {
     public Message send(Message msg, long timeout) {
         RequestingDto requestingDto = new RequestingDto(msg, new CountDownLatch(1));
         RemoteContext.instance().addRequestingDto(requestingDto);
-        NettyRequestExecutor executor = new NettyRequestExecutor(msg, requestingDto.getCountDownLatch(), this.channel);
+        NettyRequestExecutor executor = new NettyRequestExecutor(msg, requestingDto.getCountDownLatch(), this.channel, timeout);
         Future<Message> future = RemoteContext.instance().getRequestThreadPool().submit(executor);
         try {
             Message responseMessage = null;

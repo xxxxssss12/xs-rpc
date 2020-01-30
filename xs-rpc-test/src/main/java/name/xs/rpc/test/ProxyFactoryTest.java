@@ -1,6 +1,9 @@
 package name.xs.rpc.test;
 
-import name.xs.rpc.test.proxy.ProxyFactory;
+import name.xs.rpc.common.constants.Constant;
+import name.xs.rpc.proxy.ProxyFactory;
+import name.xs.rpc.remote.Client;
+import name.xs.rpc.remote.netty.RemoteContext;
 
 /**
  * create by xs
@@ -8,11 +11,17 @@ import name.xs.rpc.test.proxy.ProxyFactory;
  */
 public class ProxyFactoryTest {
     public static void main(String[] args) throws Throwable {
-//        FirstService service = FirstService.class.getConstructor().newInstance();
-//        FirstService enhanceObj = ProxyFactory.getLocalProxy(FirstServiceImpl.class);
-//        System.out.println(enhanceObj.add(1,2));
-
         FirstService newService = ProxyFactory.getRemoteProxy(FirstService.class);
-        System.out.println(newService.add(1, 2));
+        try {
+            System.out.println(newService.add(1, 2));
+            System.out.println(newService.toJson("testKey1", "testV1", "testKey2", "testV2"));
+        } catch (Exception e) {
+            Constant.LOG.error("main error", e);
+        }
+        Client c = RemoteContext.instance().getClient("127.0.0.1", 10000);
+        if (c!=null) {
+            c.stop();
+        }
+        RemoteContext.instance().getRequestThreadPool().shutdown();
     }
 }
