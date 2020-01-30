@@ -58,7 +58,7 @@ public class XsRpcNettyServer implements Server {
                             // 分隔符配置
                             ByteBuf delemiter = Unpooled.copiedBuffer(ProtocolContext.getSeperateCharacter());
                             ChannelPipeline p = ch.pipeline();
-                            p.addLast(new LoggingHandler(LogLevel.ERROR));
+                            p.addLast(new LoggingHandler(LogLevel.DEBUG));
                             //先使用DelimiterBasedFrameDecoder解决粘包
                             p.addLast(new DelimiterBasedFrameDecoder(32 * 1024, delemiter));
                             p.addLast(ProtocolContext.getDecoder());

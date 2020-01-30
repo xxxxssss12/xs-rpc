@@ -65,7 +65,7 @@ public class XsRpcNettyClient implements Client {
                             // 分隔符配置
                             ByteBuf delemiter = Unpooled.copiedBuffer(ProtocolContext.getSeperateCharacter());
                             ChannelPipeline p = ch.pipeline();
-                            p.addLast(new LoggingHandler(LogLevel.ERROR));
+                            p.addLast(new LoggingHandler(LogLevel.DEBUG));
                             p.addLast(new DelimiterBasedFrameDecoder(32 * 1024, delemiter));
                             p.addLast(ProtocolContext.getDecoder());
                             p.addLast(ProtocolContext.getEncoder());
@@ -76,7 +76,7 @@ public class XsRpcNettyClient implements Client {
             // Start the client.
             final ChannelFuture f = b.connect(host, port).sync();
             channel = f;
-            System.out.println("[XsRpcNettyClient] do start...bootstrap config over");
+            Constant.LOG.info("[XsRpcNettyClient] do start... bootstrap config over");
             // Wait until the connection is closed.
             final CountDownLatch c = new CountDownLatch(1);
             Thread t = new Thread(() -> {

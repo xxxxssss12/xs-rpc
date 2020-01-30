@@ -3,6 +3,7 @@ package name.xs.rpc.remote.netty.protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
+import name.xs.rpc.common.constants.Constant;
 import name.xs.rpc.protocol.Decoder;
 import name.xs.rpc.protocol.Message;
 import name.xs.rpc.protocol.xsp.XspDecoder;
@@ -46,6 +47,6 @@ public class DecoderAdapter extends ByteToMessageDecoder {
             msg = decoder.decode(bt);
         }
         out.add(msg);      //Read integer from inbound ByteBuf, add to the List of decodec messages
-        System.out.println("do decoder..msg=" + msg.getData() + ",sessionId=" + msg.getSessionId());
+        Constant.LOG.debug("[DecoderAdapter] do decoder..msg=" + msg.getData() + ", sessionId=" + msg.getSessionId());
     }
 }

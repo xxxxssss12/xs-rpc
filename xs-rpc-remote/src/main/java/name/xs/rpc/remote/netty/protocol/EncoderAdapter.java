@@ -3,6 +3,7 @@ package name.xs.rpc.remote.netty.protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import name.xs.rpc.common.constants.Constant;
 import name.xs.rpc.protocol.Encoder;
 import name.xs.rpc.protocol.Message;
 
@@ -22,7 +23,7 @@ public class EncoderAdapter extends MessageToByteEncoder<Message> {
     }
     @Override
     protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
-        System.out.println("do encoder..msg=" + msg.getData());
+        Constant.LOG.debug("[EncoderAdapter] do encoder..msg={}, sessionId={}", msg.getData(), msg.getSessionId());
         byte[] bytes = encoder.encode(msg);
         out.writeBytes(bytes);
     }

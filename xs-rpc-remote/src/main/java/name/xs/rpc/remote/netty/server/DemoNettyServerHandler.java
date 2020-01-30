@@ -46,7 +46,7 @@ public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter impleme
         try {
             if (msg instanceof Message) {
                 Message msg1 = (Message) msg;
-                Constant.LOG.info("[DemoNettyServerHandler] 客户端发送数据：" + JSON.toJSONString(msg));
+                Constant.LOG.debug("[DemoNettyServerHandler] 客户端发送数据：" + JSON.toJSONString(msg));
                 sessionId = msg1.getSessionId();
                 CommonRequest request = JSON.parseObject(msg1.getData(), CommonRequest.class);
                 CommonResult result = doInvoke(request);
@@ -56,7 +56,7 @@ public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter impleme
 
                 Message message = ProtocolContext.getMessageBuilder().buildMessage(content, sessionId);
                 ctx.writeAndFlush(message);
-                Constant.LOG.info("[DemoNettyServerHandler] 服务端响应：" + message.getData());
+                Constant.LOG.debug("[DemoNettyServerHandler] 服务端响应：" + message.getData());
             } else {
                 throw new XsRpcException(ErrorEnum.SERVER_01);
             }
@@ -74,7 +74,7 @@ public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter impleme
                 message = ProtocolContext.getMessageBuilder().buildMessage(JSON.toJSONString(result));
             }
             ctx.writeAndFlush(message);
-            Constant.LOG.info("[DemoNettyServerHandler] 服务端响应：" + message.getData());
+            Constant.LOG.debug("[DemoNettyServerHandler] 服务端响应：" + message.getData());
         }
     }
 
@@ -108,7 +108,6 @@ public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter impleme
     //读取完成后处理方法
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
-        System.out.println("[server]EchoServerHandler.channelReadComplete");
     }
 
     //异常捕获处理方法
@@ -118,12 +117,4 @@ public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter impleme
         cause.printStackTrace();
         ctx.close();
     }
-
-//    public ProviderHandler getProviderHandler() {
-//        return providerHandler;
-//    }
-
-//    public void setProviderHandler(ProviderHandler providerHandler) {
-//        this.providerHandler = providerHandler;
-//    }
 }
