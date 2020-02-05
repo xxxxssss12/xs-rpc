@@ -1,7 +1,6 @@
 package name.xs.rpc.remote.netty;
 
 import name.xs.rpc.protocol.Message;
-import name.xs.rpc.remote.netty.client.NettyRequestExecutor;
 
 import java.util.concurrent.CountDownLatch;
 

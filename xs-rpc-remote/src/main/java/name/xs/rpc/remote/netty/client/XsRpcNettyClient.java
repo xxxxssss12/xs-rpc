@@ -119,17 +119,26 @@ public class XsRpcNettyClient implements Client {
         }
     }
 
+    /**
+     *
+     * @param msg 要发出的消息
+     * @param timeout <=0,永不超时
+     * @return
+     */
     @Override
     public Message send(Message msg, long timeout) {
+        // 进行中的请求
         RequestingDto requestingDto = new RequestingDto(msg, new CountDownLatch(1));
         RemoteContext.instance().addRequestingDto(requestingDto);
-        NettyRequestExecutor executor = new NettyRequestExecutor(msg, requestingDto.getCountDownLatch(), this.channel, timeout);
-        Future<Message> future = RemoteContext.instance().getRequestThreadPool().submit(executor);
+        NettyRequestTask task = new NettyRequestTask(msg, requestingDto.getCountDownLatch(), this.channel, timeout);
+        Future<Message> future = RemoteContext.instance().getRequestThreadPool().submit(task);
         try {
             Message responseMessage = null;
             if (timeout > 0) {
+                // 阻塞
                 responseMessage =  future.get(timeout, TimeUnit.MILLISECONDS);
             } else {
+                // 阻塞
                 responseMessage =  future.get();
             }
             if (responseMessage != null) {

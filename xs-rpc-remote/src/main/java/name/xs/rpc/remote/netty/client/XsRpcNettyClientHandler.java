@@ -20,9 +20,11 @@ public class XsRpcNettyClientHandler extends ChannelInboundHandlerAdapter implem
         if (msg instanceof Message) {
             Message msg1 = (Message) msg;
             Constant.LOG.debug("[XsRpcNettyClientHandler] channelRead,msg={},sessionId={}", msg1.getData(), msg1.getSessionId());
+            // 根据请求的sessionId获取进行中的请求
             RequestingDto requestingDto = RemoteContext.instance().getRequestingDto(msg1.getSessionId());
             if (requestingDto != null) {
                 requestingDto.setResponseMessage(msg1);
+                // 唤醒
                 requestingDto.getCountDownLatch().countDown();
             }
         } else {

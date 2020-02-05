@@ -13,14 +13,14 @@ import java.util.concurrent.TimeUnit;
  * create by xs
  * create time:2020-01-28 19:26:15
  */
-public class NettyRequestExecutor implements Callable<Message> {
+public class NettyRequestTask implements Callable<Message> {
 
     private Message requestMessage;
     private CountDownLatch countDownLatch;
     private ChannelFuture channelFuture;
     private Long timeout;
 
-    public NettyRequestExecutor(Message requestMessage, CountDownLatch countDownLatch, ChannelFuture channelFuture, Long timeout) {
+    public NettyRequestTask(Message requestMessage, CountDownLatch countDownLatch, ChannelFuture channelFuture, Long timeout) {
         this.requestMessage = requestMessage;
         this.countDownLatch = countDownLatch;
         this.channelFuture = channelFuture;
