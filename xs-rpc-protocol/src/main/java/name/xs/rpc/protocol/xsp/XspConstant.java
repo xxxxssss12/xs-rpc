@@ -3,7 +3,7 @@ package name.xs.rpc.protocol.xsp;
 /**
  * 常量定义
  *
- * create by xs
+ * @author xs
  * create time:2019-07-09 16:17:39
  */
 public class XspConstant {

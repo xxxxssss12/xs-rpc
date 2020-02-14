@@ -1,17 +1,18 @@
-package name.xs.rpc.remote.netty;
+package name.xs.rpc.common.context;
 
+import name.xs.rpc.common.beans.remote.RequestingDto;
 import name.xs.rpc.common.constants.Constant;
 import name.xs.rpc.common.enums.ErrorEnum;
 import name.xs.rpc.common.enums.ThreadNameEnum;
 import name.xs.rpc.common.exceptions.XsRpcException;
 import name.xs.rpc.common.utils.XsRpcThreadFactory;
-import name.xs.rpc.remote.Client;
+import name.xs.rpc.common.beans.remote.Client;
 
 import java.util.Map;
 import java.util.concurrent.*;
 
 /**
- * create by xs
+ * @author xs
  * create time:2020-01-27 15:06:53
  */
 public class RemoteContext {

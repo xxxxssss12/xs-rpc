@@ -1,7 +1,7 @@
 package name.xs.rpc.common.enums;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-12-08 22:27:27
  */
 public enum ErrorEnum {
@@ -17,6 +17,7 @@ public enum ErrorEnum {
     NETTY_06("001006", "request timeout exception"), // 请求超时
     NETTY_07("001007", "request unknown exception"), // 未知异常
     PROTOCOL_01("002001", "sessionId length error"), // sessionId长度不正确
+    PROTOCOL_02("002002", "context not initialized"), // protocolContext还未初始化
     SERVER_01("003001", "client request format wrong"), // 客户端请求格式错误
     SERVER_02("003002", "provider instance not fount"), // 没有找到实现类
     ;

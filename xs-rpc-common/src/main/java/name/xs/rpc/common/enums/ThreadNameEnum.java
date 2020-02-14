@@ -3,7 +3,7 @@ package name.xs.rpc.common.enums;
 /**
  * 线程名
  *
- * create by xs
+ * @author xs
  * create time:2020-01-28 09:22:41
  */
 public enum ThreadNameEnum {

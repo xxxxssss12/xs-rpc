@@ -1,11 +1,13 @@
-package name.xs.rpc.remote.netty;
+package name.xs.rpc.common.beans.remote;
 
-import name.xs.rpc.protocol.Message;
+import name.xs.rpc.common.beans.protocol.Message;
 
 import java.util.concurrent.CountDownLatch;
 
 /**
- * create by xs
+ * 进行中的请求对象
+ *
+ * @author xs
  * create time:2020-01-28 19:23:28
  */
 public class RequestingDto {

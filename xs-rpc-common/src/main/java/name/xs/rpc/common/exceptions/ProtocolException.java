@@ -1,7 +1,7 @@
 package name.xs.rpc.common.exceptions;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-07-09 16:22:52
  */
 public class ProtocolException extends RuntimeException {

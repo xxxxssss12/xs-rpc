@@ -4,7 +4,7 @@ import name.xs.rpc.common.beans.XsRpcExceptionSerialize;
 import name.xs.rpc.common.enums.ErrorEnum;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-12-08 22:27:15
  */
 public class XsRpcException extends RuntimeException {

@@ -1,13 +1,13 @@
 package name.xs.rpc.protocol.xsp;
 
-import name.xs.rpc.protocol.Message;
+import name.xs.rpc.common.beans.protocol.Message;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-07-09 16:05:41
  */
 public class XspMessage implements Message {

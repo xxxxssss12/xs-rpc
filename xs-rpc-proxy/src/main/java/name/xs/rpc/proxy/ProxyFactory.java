@@ -7,7 +7,7 @@ import name.xs.rpc.proxy.invoke.RemoteInvoker;
 import java.lang.reflect.Proxy;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-07-15 16:09:28
  */
 public class ProxyFactory {

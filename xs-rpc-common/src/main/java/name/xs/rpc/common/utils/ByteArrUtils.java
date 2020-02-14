@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-07-09 16:28:23
  */
 public class ByteArrUtils {

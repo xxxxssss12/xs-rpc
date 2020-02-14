@@ -1,7 +1,8 @@
-package name.xs.rpc.protocol;
+package name.xs.rpc.common.beans.protocol;
 
 /**
- * create by xs, 2019-07-13 15:23
+ * @author xs
+ * create time: 2019-07-13 15:23
  */
 public interface MessageBuilder {
 

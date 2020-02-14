@@ -11,12 +11,15 @@ import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import name.xs.rpc.common.constants.Constant;
-import name.xs.rpc.remote.Server;
-import name.xs.rpc.remote.ServerHandler;
-import name.xs.rpc.remote.netty.protocol.ProtocolContext;
+import name.xs.rpc.common.beans.remote.Server;
+import name.xs.rpc.common.beans.remote.ServerHandler;
+import name.xs.rpc.common.context.ProtocolContext;
+import name.xs.rpc.remote.netty.protocol.NettyDecoderAdapter;
+import name.xs.rpc.remote.netty.protocol.NettyEncoderAdapter;
+import name.xs.rpc.remote.netty.protocol.ProtocolContextInit;
 
 /**
- * create by xs
+ * @author xs
  * create time:2020-01-30 09:09:39
  */
 public class XsRpcNettyServer implements Server {
@@ -54,15 +57,15 @@ public class XsRpcNettyServer implements Server {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) {
-                            ProtocolContext.init();
+                            ProtocolContextInit.init();
                             // 分隔符配置
-                            ByteBuf delemiter = Unpooled.copiedBuffer(ProtocolContext.getSeperateCharacter());
+                            ByteBuf delemiter = Unpooled.copiedBuffer(ProtocolContext.instance().getSeperateCharacter());
                             ChannelPipeline p = ch.pipeline();
                             p.addLast(new LoggingHandler(LogLevel.DEBUG));
                             //先使用DelimiterBasedFrameDecoder解决粘包
                             p.addLast(new DelimiterBasedFrameDecoder(32 * 1024, delemiter));
-                            p.addLast(ProtocolContext.getDecoder());
-                            p.addLast(ProtocolContext.getEncoder());
+                            p.addLast((NettyDecoderAdapter) ProtocolContext.instance().getDecoder());
+                            p.addLast((NettyEncoderAdapter) ProtocolContext.instance().getEncoder());
                             p.addLast((ChannelHandler) handler);
                         }
                     });

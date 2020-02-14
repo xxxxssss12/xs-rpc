@@ -1,9 +1,10 @@
 package name.xs.rpc.protocol.jlsp;
 
-import name.xs.rpc.protocol.Message;
+import name.xs.rpc.common.beans.protocol.Message;
 
 /**
- * create by xs, 2019-07-14 22:13
+ * @author xs
+ * create time: 2019-07-14 22:13
  */
 public class JlspMessage implements Message {
     private String data;

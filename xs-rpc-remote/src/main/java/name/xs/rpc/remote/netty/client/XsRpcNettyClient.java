@@ -14,19 +14,22 @@ import name.xs.rpc.common.constants.Constant;
 import name.xs.rpc.common.enums.ErrorEnum;
 import name.xs.rpc.common.enums.ThreadNameEnum;
 import name.xs.rpc.common.exceptions.XsRpcException;
-import name.xs.rpc.protocol.Message;
-import name.xs.rpc.remote.Client;
-import name.xs.rpc.remote.ClientHandler;
-import name.xs.rpc.remote.netty.RemoteContext;
-import name.xs.rpc.remote.netty.RequestingDto;
-import name.xs.rpc.remote.netty.protocol.ProtocolContext;
+import name.xs.rpc.common.beans.protocol.Message;
+import name.xs.rpc.common.beans.remote.Client;
+import name.xs.rpc.common.beans.remote.ClientHandler;
+import name.xs.rpc.common.context.RemoteContext;
+import name.xs.rpc.common.beans.remote.RequestingDto;
+import name.xs.rpc.common.context.ProtocolContext;
+import name.xs.rpc.remote.netty.protocol.NettyDecoderAdapter;
+import name.xs.rpc.remote.netty.protocol.NettyEncoderAdapter;
+import name.xs.rpc.remote.netty.protocol.ProtocolContextInit;
 import org.apache.commons.lang3.StringUtils;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.*;
 
 /**
- * create by xs
+ * @author xs
  * create time:2020-01-27 12:03:48
  */
 public class XsRpcNettyClient implements Client {
@@ -61,14 +64,14 @@ public class XsRpcNettyClient implements Client {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ProtocolContext.init();
+                            ProtocolContextInit.init();
                             // 分隔符配置
-                            ByteBuf delemiter = Unpooled.copiedBuffer(ProtocolContext.getSeperateCharacter());
+                            ByteBuf delemiter = Unpooled.copiedBuffer(ProtocolContext.instance().getSeperateCharacter());
                             ChannelPipeline p = ch.pipeline();
                             p.addLast(new LoggingHandler(LogLevel.DEBUG));
                             p.addLast(new DelimiterBasedFrameDecoder(32 * 1024, delemiter));
-                            p.addLast(ProtocolContext.getDecoder());
-                            p.addLast(ProtocolContext.getEncoder());
+                            p.addLast((NettyDecoderAdapter) ProtocolContext.instance().getDecoder());
+                            p.addLast((NettyEncoderAdapter) ProtocolContext.instance().getEncoder());
                             p.addLast((ChannelHandler) handler);
                         }
                     });

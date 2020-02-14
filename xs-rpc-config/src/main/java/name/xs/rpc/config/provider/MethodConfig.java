@@ -3,7 +3,8 @@ package name.xs.rpc.config.provider;
 import java.util.List;
 
 /**
- * create by xs, 2019-06-30 17:38
+ * @author xs
+ * create time: 2019-06-30 17:38
  */
 public class MethodConfig {
 

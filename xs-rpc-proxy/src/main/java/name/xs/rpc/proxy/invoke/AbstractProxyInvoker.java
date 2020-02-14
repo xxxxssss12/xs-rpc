@@ -9,7 +9,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 /**
- * create by xs
+ * @author xs
  * create time:2020-01-29 12:07:45
  */
 public abstract class AbstractProxyInvoker<T> implements Invoker, InvocationHandler {

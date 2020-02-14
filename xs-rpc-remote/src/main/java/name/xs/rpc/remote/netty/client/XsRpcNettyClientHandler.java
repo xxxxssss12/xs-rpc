@@ -1,17 +1,19 @@
 package name.xs.rpc.remote.netty.client;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import name.xs.rpc.common.constants.Constant;
-import name.xs.rpc.protocol.Message;
-import name.xs.rpc.remote.ClientHandler;
-import name.xs.rpc.remote.netty.RemoteContext;
-import name.xs.rpc.remote.netty.RequestingDto;
+import name.xs.rpc.common.beans.protocol.Message;
+import name.xs.rpc.common.beans.remote.ClientHandler;
+import name.xs.rpc.common.context.RemoteContext;
+import name.xs.rpc.common.beans.remote.RequestingDto;
 
 /**
- * create by xs
+ * @author xs
  * create time:2020-01-27 12:05:09
  */
+@ChannelHandler.Sharable
 public class XsRpcNettyClientHandler extends ChannelInboundHandlerAdapter implements ClientHandler {
     //接收到数据后调用...
     @Override

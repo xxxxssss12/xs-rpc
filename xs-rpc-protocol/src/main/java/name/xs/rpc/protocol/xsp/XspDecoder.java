@@ -2,14 +2,14 @@ package name.xs.rpc.protocol.xsp;
 
 import name.xs.rpc.common.utils.Base64Utils;
 import name.xs.rpc.common.utils.ByteArrUtils;
-import name.xs.rpc.protocol.Decoder;
-import name.xs.rpc.protocol.Message;
+import name.xs.rpc.common.beans.protocol.Decoder;
+import name.xs.rpc.common.beans.protocol.Message;
 
 import java.io.UnsupportedEncodingException;
 import java.net.ProtocolException;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-07-09 16:16:58
  */
 public class XspDecoder implements Decoder {

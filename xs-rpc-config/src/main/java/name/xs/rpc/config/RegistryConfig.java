@@ -3,7 +3,7 @@ package name.xs.rpc.config;
 /**
  * 注册中心配置
  *
- * create by xs
+ * @author xs
  * create time:2019-11-14 09:20:22
  */
 public class RegistryConfig {

@@ -2,11 +2,11 @@ package name.xs.rpc.test;
 
 import name.xs.rpc.common.constants.Constant;
 import name.xs.rpc.proxy.ProxyFactory;
-import name.xs.rpc.remote.Client;
-import name.xs.rpc.remote.netty.RemoteContext;
+import name.xs.rpc.common.beans.remote.Client;
+import name.xs.rpc.common.context.RemoteContext;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-07-15 16:23:43
  */
 public class ProxyFactoryTest {
@@ -18,7 +18,7 @@ public class ProxyFactoryTest {
         } catch (Exception e) {
             Constant.LOG.error("main error", e);
         }
-        Client c = RemoteContext.instance().getClient("127.0.0.1", 10000);
+        Client c = RemoteContext.instance().getClient("127.0.0.1", 10020);
         if (c!=null) {
             c.stop();
         }

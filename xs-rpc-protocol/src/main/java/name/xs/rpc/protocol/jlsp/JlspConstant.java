@@ -3,7 +3,7 @@ package name.xs.rpc.protocol.jlsp;
 /**
  * just line seperator protocol
  *
- * create by xs
+ * @author xs
  * create time:2019-07-14 11:45:56
  */
 public class JlspConstant {

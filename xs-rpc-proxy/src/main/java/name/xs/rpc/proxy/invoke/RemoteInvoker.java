@@ -6,17 +6,17 @@ import name.xs.rpc.common.beans.CommonResult;
 import name.xs.rpc.common.beans.Result;
 import name.xs.rpc.common.utils.TypeConvertUtils;
 import name.xs.rpc.config.ProviderMetadata;
-import name.xs.rpc.protocol.Message;
-import name.xs.rpc.remote.Client;
-import name.xs.rpc.remote.netty.RemoteContext;
+import name.xs.rpc.common.beans.protocol.Message;
+import name.xs.rpc.common.beans.remote.Client;
+import name.xs.rpc.common.context.RemoteContext;
 import name.xs.rpc.remote.netty.client.XsRpcNettyClient;
 import name.xs.rpc.remote.netty.client.XsRpcNettyClientHandler;
-import name.xs.rpc.remote.netty.protocol.ProtocolContext;
+import name.xs.rpc.common.context.ProtocolContext;
 
 import java.lang.reflect.Method;
 
 /**
- * create by xs
+ * @author xs
  * create time:2020-01-26 20:22:05
  */
 public class RemoteInvoker<T> extends AbstractProxyInvoker<T> {
@@ -54,7 +54,7 @@ public class RemoteInvoker<T> extends AbstractProxyInvoker<T> {
 
     private Message request2Msg(CommonRequest request) {
         String requestStr = JSON.toJSONString(request);
-        Message msg = ProtocolContext.getMessageBuilder().buildMessage(requestStr);
+        Message msg = ProtocolContext.instance().getMessageBuilder().buildMessage(requestStr);
         return msg;
     }
 
@@ -64,7 +64,7 @@ public class RemoteInvoker<T> extends AbstractProxyInvoker<T> {
         metadata.setHost("127.0.0.1");
         metadata.setInterfaceName(insterfase.getName());
         metadata.setMethodsName(methodName);
-        metadata.setPort(10000);
+        metadata.setPort(10020);
         metadata.setInterfaceVersion("0.0.1");
         return metadata;
     }

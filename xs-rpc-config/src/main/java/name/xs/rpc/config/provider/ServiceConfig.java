@@ -4,7 +4,8 @@ import java.util.List;
 
 /**
  * 单个服务配置
- * create by xs, 2019-06-30 17:07
+ * @author xs
+ * create time: 2019-06-30 17:07
  */
 public class ServiceConfig {
 

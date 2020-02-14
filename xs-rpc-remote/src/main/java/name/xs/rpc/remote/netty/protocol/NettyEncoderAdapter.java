@@ -3,22 +3,23 @@ package name.xs.rpc.remote.netty.protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+import name.xs.rpc.common.beans.remote.EncoderAdapter;
 import name.xs.rpc.common.constants.Constant;
-import name.xs.rpc.protocol.Encoder;
-import name.xs.rpc.protocol.Message;
+import name.xs.rpc.common.beans.protocol.Encoder;
+import name.xs.rpc.common.beans.protocol.Message;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-07-10 20:44:00
  */
-public class EncoderAdapter extends MessageToByteEncoder<Message> {
+public class NettyEncoderAdapter extends MessageToByteEncoder<Message> implements EncoderAdapter {
     private Encoder encoder;
 
     public Encoder getEncoder() {
         return encoder;
     }
 
-    public EncoderAdapter(Encoder encoder) {
+    public NettyEncoderAdapter(Encoder encoder) {
         this.encoder = encoder;
     }
     @Override

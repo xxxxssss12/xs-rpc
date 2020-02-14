@@ -1,11 +1,11 @@
 package name.xs.rpc.protocol.xsp;
 
-import name.xs.rpc.protocol.Header;
+import name.xs.rpc.common.beans.protocol.Header;
 
 /**
  * 自定义协议头
  *
- * create by xs
+ * @author xs
  * create time:2019-07-09 16:04:38
  */
 public class XspHeader implements Header {

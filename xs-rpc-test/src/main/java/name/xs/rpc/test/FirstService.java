@@ -3,7 +3,7 @@ package name.xs.rpc.test;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-07-15 15:53:42
  */
 public interface FirstService {

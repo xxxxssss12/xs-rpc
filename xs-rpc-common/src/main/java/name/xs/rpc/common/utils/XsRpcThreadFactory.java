@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * create by xs
+ * @author xs
  * create time:2020-01-28 09:10:39
  */
 public class XsRpcThreadFactory implements ThreadFactory {

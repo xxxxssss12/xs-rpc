@@ -3,25 +3,28 @@ package name.xs.rpc.remote.netty.protocol;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
+import name.xs.rpc.common.beans.protocol.Encoder;
+import name.xs.rpc.common.beans.remote.DecoderAdapter;
+import name.xs.rpc.common.beans.remote.EncoderAdapter;
 import name.xs.rpc.common.constants.Constant;
-import name.xs.rpc.protocol.Decoder;
-import name.xs.rpc.protocol.Message;
+import name.xs.rpc.common.beans.protocol.Decoder;
+import name.xs.rpc.common.beans.protocol.Message;
 import name.xs.rpc.protocol.xsp.XspDecoder;
 
 import java.util.List;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-07-10 20:44:08
  */
-public class DecoderAdapter extends ByteToMessageDecoder {
+public class NettyDecoderAdapter extends ByteToMessageDecoder implements DecoderAdapter {
     private Decoder decoder;
 
     public Decoder getDecoder() {
         return decoder;
     }
 
-    public DecoderAdapter(Decoder decoder) {
+    public NettyDecoderAdapter(Decoder decoder) {
         this.decoder = decoder;
     }
     @Override

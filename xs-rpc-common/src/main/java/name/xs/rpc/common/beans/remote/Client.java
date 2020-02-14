@@ -1,9 +1,9 @@
-package name.xs.rpc.remote;
+package name.xs.rpc.common.beans.remote;
 
-import name.xs.rpc.protocol.Message;
+import name.xs.rpc.common.beans.protocol.Message;
 
 /**
- * create by xs
+ * @author xs
  * create time:2020-01-28 10:19:32
  */
 public interface Client {

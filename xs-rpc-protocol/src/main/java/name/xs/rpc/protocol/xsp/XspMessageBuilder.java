@@ -5,14 +5,15 @@ import name.xs.rpc.common.exceptions.XsRpcException;
 import name.xs.rpc.common.utils.Base64Utils;
 import name.xs.rpc.common.utils.ByteArrUtils;
 
-import name.xs.rpc.protocol.Message;
-import name.xs.rpc.protocol.MessageBuilder;
+import name.xs.rpc.common.beans.protocol.Message;
+import name.xs.rpc.common.beans.protocol.MessageBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
 /**
- * create by xs, 2019-07-13 15:24
+ * @author xs
+ * create time: 2019-07-13 15:24
  */
 public class XspMessageBuilder implements MessageBuilder {
 

@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * exception serializable
  *
- * create by xs
+ * @author xs
  * create time:2020/1/9 17:27
  */
 public class XsRpcExceptionSerialize implements Serializable {

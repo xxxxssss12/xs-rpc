@@ -5,7 +5,8 @@ import org.apache.commons.codec.binary.Base64;
 import java.io.UnsupportedEncodingException;
 
 /**
- * create by xs, 2019-07-13 15:13
+ * @author xs
+ * create time: 2019-07-13 15:13
  */
 public class Base64Utils {
     private static final Base64 base64 = new Base64();

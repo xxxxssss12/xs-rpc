@@ -1,16 +1,16 @@
 package name.xs.rpc.remote.netty.client;
 
 import io.netty.channel.ChannelFuture;
-import name.xs.rpc.protocol.Message;
-import name.xs.rpc.remote.netty.RemoteContext;
-import name.xs.rpc.remote.netty.RequestingDto;
+import name.xs.rpc.common.beans.protocol.Message;
+import name.xs.rpc.common.context.RemoteContext;
+import name.xs.rpc.common.beans.remote.RequestingDto;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
- * create by xs
+ * @author xs
  * create time:2020-01-28 19:26:15
  */
 public class NettyRequestTask implements Callable<Message> {

@@ -5,7 +5,7 @@ import name.xs.rpc.common.beans.Result;
 import java.lang.reflect.Method;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-12-08 22:20:44
  */
 public interface Invoker {

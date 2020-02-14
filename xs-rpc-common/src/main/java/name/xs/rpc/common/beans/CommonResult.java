@@ -1,7 +1,7 @@
 package name.xs.rpc.common.beans;
 
 /**
- * create by xs
+ * @author xs
  * create time:2019-12-08 22:46:16
  */
 public class CommonResult implements Result {

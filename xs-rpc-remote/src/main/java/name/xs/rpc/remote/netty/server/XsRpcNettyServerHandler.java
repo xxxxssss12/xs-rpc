@@ -1,8 +1,6 @@
 package name.xs.rpc.remote.netty.server;
 
 import com.alibaba.fastjson.JSON;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -14,22 +12,20 @@ import name.xs.rpc.common.context.ProxyContext;
 import name.xs.rpc.common.enums.ErrorEnum;
 import name.xs.rpc.common.exceptions.XsRpcException;
 import name.xs.rpc.common.utils.TypeConvertUtils;
-import name.xs.rpc.protocol.Message;
-import name.xs.rpc.protocol.xsp.XspHeader;
-import name.xs.rpc.protocol.xsp.XspMessage;
-import name.xs.rpc.protocol.xsp.XspMessageBuilder;
-import name.xs.rpc.remote.ServerHandler;
-import name.xs.rpc.remote.netty.protocol.ProtocolContext;
+import name.xs.rpc.common.beans.protocol.Message;
+import name.xs.rpc.common.beans.remote.ServerHandler;
+import name.xs.rpc.common.context.ProtocolContext;
 
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ *
+ * @author xs
+ */
 @ChannelHandler.Sharable
-public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter implements ServerHandler {
+public class XsRpcNettyServerHandler extends ChannelInboundHandlerAdapter implements ServerHandler {
 
-//    private ProviderHandler providerHandler;
-    private AtomicInteger requestCount = new AtomicInteger(0);
     /**
      * 客户端连接成功时触发
      * @param ctx
@@ -37,7 +33,7 @@ public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter impleme
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        Constant.LOG.info("[DemoNettyServerHandler] 客户端连入：" + ctx.channel().remoteAddress().toString());
+        Constant.LOG.info("[XsRpcNettyServerHandler] 客户端连入：" + ctx.channel().remoteAddress().toString());
     }
     // 接受请求后处理类
     @Override
@@ -46,7 +42,7 @@ public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter impleme
         try {
             if (msg instanceof Message) {
                 Message msg1 = (Message) msg;
-                Constant.LOG.debug("[DemoNettyServerHandler] 客户端发送数据：" + JSON.toJSONString(msg));
+                Constant.LOG.debug("[XsRpcNettyServerHandler] 客户端发送数据：" + JSON.toJSONString(msg));
                 sessionId = msg1.getSessionId();
                 CommonRequest request = JSON.parseObject(msg1.getData(), CommonRequest.class);
                 CommonResult result = doInvoke(request);
@@ -54,14 +50,14 @@ public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter impleme
                 String content = JSON.toJSONString(result);
 
 
-                Message message = ProtocolContext.getMessageBuilder().buildMessage(content, sessionId);
+                Message message = ProtocolContext.instance().getMessageBuilder().buildMessage(content, sessionId);
                 ctx.writeAndFlush(message);
-                Constant.LOG.debug("[DemoNettyServerHandler] 服务端响应：" + message.getData());
+                Constant.LOG.debug("[XsRpcNettyServerHandler] 服务端响应：" + message.getData());
             } else {
                 throw new XsRpcException(ErrorEnum.SERVER_01);
             }
         } catch (Exception e) {
-            Constant.LOG.error("[DemoNettyServerHandler] server invoke error", e);
+            Constant.LOG.error("[XsRpcNettyServerHandler] server invoke error", e);
             CommonResult result = new CommonResult();
             XsRpcExceptionSerialize serialize = new XsRpcExceptionSerialize();
             serialize.setClassName(e.getClass().getName());
@@ -69,12 +65,12 @@ public class DemoNettyServerHandler extends ChannelInboundHandlerAdapter impleme
             result.setException(serialize);
             Message message = null;
             if (sessionId != null) {
-                message = ProtocolContext.getMessageBuilder().buildMessage(JSON.toJSONString(result), sessionId);
+                message = ProtocolContext.instance().getMessageBuilder().buildMessage(JSON.toJSONString(result), sessionId);
             } else {
-                message = ProtocolContext.getMessageBuilder().buildMessage(JSON.toJSONString(result));
+                message = ProtocolContext.instance().getMessageBuilder().buildMessage(JSON.toJSONString(result));
             }
             ctx.writeAndFlush(message);
-            Constant.LOG.debug("[DemoNettyServerHandler] 服务端响应：" + message.getData());
+            Constant.LOG.debug("[XsRpcNettyServerHandler] 服务端响应：" + message.getData());
         }
     }
 
