@@ -24,4 +24,8 @@ public class FirstServiceImpl implements FirstService {
         }
         return obj;
     }
+    @Override
+    public Integer substract(int a, int b) {
+        return a-b;
+    }
 }

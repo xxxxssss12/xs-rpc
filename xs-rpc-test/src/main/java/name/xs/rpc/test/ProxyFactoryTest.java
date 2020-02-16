@@ -15,6 +15,7 @@ public class ProxyFactoryTest {
         try {
             System.out.println(newService.add(1, 2));
             System.out.println(newService.toJson("testKey1", "testV1", "testKey2", "testV2"));
+            System.out.println(newService.substract(1, 2));
         } catch (Exception e) {
             Constant.LOG.error("main error", e);
         }

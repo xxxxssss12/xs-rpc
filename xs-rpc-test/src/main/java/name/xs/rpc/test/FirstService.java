@@ -11,4 +11,6 @@ public interface FirstService {
     Integer add(int a, int b);
 
     JSONObject toJson(String keyA, String valueA, String keyB, String valueB);
+
+    Integer substract(int a, int b);
 }

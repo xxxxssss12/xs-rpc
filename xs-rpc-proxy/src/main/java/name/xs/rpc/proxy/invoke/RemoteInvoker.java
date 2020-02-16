@@ -30,7 +30,7 @@ public class RemoteInvoker<T> extends AbstractProxyInvoker<T> {
     @Override
     public Result invoke(Method method, Class<?>[] parameterTypes, Object[] arguments) throws Exception {
         String methodName = method.getName();
-        // TODO 1. 从注册中心拉取所有providerMetaInfo
+        // TODO 1. 从本地拉取所有providerMetaInfo
         // 2. 负载均衡策略选择一个provider
         ProviderMetadata metadata = testMetadata(methodName);
         // 3. 封装request

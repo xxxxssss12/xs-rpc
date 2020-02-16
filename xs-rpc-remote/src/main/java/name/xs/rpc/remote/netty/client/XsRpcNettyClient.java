@@ -20,6 +20,7 @@ import name.xs.rpc.common.beans.remote.ClientHandler;
 import name.xs.rpc.common.context.RemoteContext;
 import name.xs.rpc.common.beans.remote.RequestingDto;
 import name.xs.rpc.common.context.ProtocolContext;
+import name.xs.rpc.protocol.jlsp.JlspDecoder;
 import name.xs.rpc.remote.netty.protocol.NettyDecoderAdapter;
 import name.xs.rpc.remote.netty.protocol.NettyEncoderAdapter;
 import name.xs.rpc.remote.netty.protocol.ProtocolContextInit;
@@ -59,18 +60,20 @@ public class XsRpcNettyClient implements Client {
         try {
             group = new NioEventLoopGroup();
             Bootstrap b = new Bootstrap();
+            ProtocolContextInit.init();
             b.group(group)
                     .channel(NioSocketChannel.class)
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) throws Exception {
-                            ProtocolContextInit.init();
                             // 分隔符配置
                             ByteBuf delemiter = Unpooled.copiedBuffer(ProtocolContext.instance().getSeperateCharacter());
                             ChannelPipeline p = ch.pipeline();
                             p.addLast(new LoggingHandler(LogLevel.DEBUG));
                             p.addLast(new DelimiterBasedFrameDecoder(32 * 1024, delemiter));
-                            p.addLast((NettyDecoderAdapter) ProtocolContext.instance().getDecoder());
+//                            p.addLast((NettyDecoderAdapter) ProtocolContext.instance().getDecoder());
+                            // ByteToMessageDecoder 不能单例。
+                            p.addLast(new NettyDecoderAdapter(ProtocolContext.instance().getXsDecoder()));
                             p.addLast((NettyEncoderAdapter) ProtocolContext.instance().getEncoder());
                             p.addLast((ChannelHandler) handler);
                         }

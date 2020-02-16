@@ -14,6 +14,7 @@ import name.xs.rpc.common.constants.Constant;
 import name.xs.rpc.common.beans.remote.Server;
 import name.xs.rpc.common.beans.remote.ServerHandler;
 import name.xs.rpc.common.context.ProtocolContext;
+import name.xs.rpc.protocol.jlsp.JlspDecoder;
 import name.xs.rpc.remote.netty.protocol.NettyDecoderAdapter;
 import name.xs.rpc.remote.netty.protocol.NettyEncoderAdapter;
 import name.xs.rpc.remote.netty.protocol.ProtocolContextInit;
@@ -45,6 +46,7 @@ public class XsRpcNettyServer implements Server {
          * b.bind设置绑定的端口
          * b.sync阻塞直至启动服务
          */
+        ProtocolContextInit.init();
         if (this.isRunning()) {
             return;
         }
@@ -57,14 +59,15 @@ public class XsRpcNettyServer implements Server {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         public void initChannel(SocketChannel ch) {
-                            ProtocolContextInit.init();
                             // 分隔符配置
                             ByteBuf delemiter = Unpooled.copiedBuffer(ProtocolContext.instance().getSeperateCharacter());
                             ChannelPipeline p = ch.pipeline();
                             p.addLast(new LoggingHandler(LogLevel.DEBUG));
                             //先使用DelimiterBasedFrameDecoder解决粘包
                             p.addLast(new DelimiterBasedFrameDecoder(32 * 1024, delemiter));
-                            p.addLast((NettyDecoderAdapter) ProtocolContext.instance().getDecoder());
+//                            p.addLast((NettyDecoderAdapter) ProtocolContext.instance().getDecoder());
+                            // ByteToMessageDecoder 不能单例。
+                            p.addLast(new NettyDecoderAdapter(ProtocolContext.instance().getXsDecoder()));
                             p.addLast((NettyEncoderAdapter) ProtocolContext.instance().getEncoder());
                             p.addLast((ChannelHandler) handler);
                         }

@@ -7,16 +7,17 @@ import java.util.List;
  * @author xs
  * create time: 2019-06-30 17:07
  */
-public class ServiceConfig {
+public class ServiceConfig<T> {
 
     private String serviceId;           // 服务id
     private String name;                // 服务名称
-    private Class<?> interfaceClass;    // 接口类
-    private Class<?> implementsClass;   // 实现类
-    private String protocol;            // 使用协议
+    private Class<T> interfaceClass;    // 接口类
+    private T implementsObj;   // 实现类对象
+//    private String protocol;            // 使用协议
     private int timeout = -1;           // 超时毫秒，-1永不超时
 
     private List<MethodConfig> methodConfigList;    // 方法列表
+
     public String getName() {
         return name;
     }
@@ -25,28 +26,20 @@ public class ServiceConfig {
         this.name = name;
     }
 
-    public Class<?> getInterfaceClass() {
+    public Class<T> getInterfaceClass() {
         return interfaceClass;
     }
 
-    public void setInterfaceClass(Class<?> interfaceClass) {
+    public void setInterfaceClass(Class<T> interfaceClass) {
         this.interfaceClass = interfaceClass;
     }
 
-    public Class<?> getImplementsClass() {
-        return implementsClass;
+    public T getImplementsObj() {
+        return implementsObj;
     }
 
-    public void setImplementsClass(Class<?> implementsClass) {
-        this.implementsClass = implementsClass;
-    }
-
-    public String getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
+    public void setImplementsObj(T implementsObj) {
+        this.implementsObj = implementsObj;
     }
 
     public int getTimeout() {
@@ -64,11 +57,16 @@ public class ServiceConfig {
     public void setMethodConfigList(List<MethodConfig> methodConfigList) {
         this.methodConfigList = methodConfigList;
     }
+
     public String getServiceId() {
         return serviceId;
     }
 
     public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
+    }
+
+    public void export() {
+
     }
 }

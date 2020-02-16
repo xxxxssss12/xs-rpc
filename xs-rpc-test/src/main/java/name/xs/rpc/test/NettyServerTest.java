@@ -10,7 +10,7 @@ import name.xs.rpc.remote.netty.server.XsRpcNettyServer;
  */
 public class NettyServerTest {
     public static void main(String[] args) throws Throwable {
-        ProxyFactory.getLocalProxy(FirstServiceImpl.class);
+        ProxyFactory.getLocalProxy(FirstService.class, new FirstServiceImpl());
         XsRpcNettyServer.instance().start(10020, new XsRpcNettyServerHandler());
     }
 }

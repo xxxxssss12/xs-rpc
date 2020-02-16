@@ -21,6 +21,8 @@ public class ProtocolContextInit {
         }
         p.setEncoder(new NettyEncoderAdapter(new JlspEncoder()));
         p.setDecoder(new NettyDecoderAdapter(new JlspDecoder()));
+        p.setXsEncoder(new JlspEncoder());
+        p.setXsDecoder(new JlspDecoder());
         p.setSeperateCharacter(JlspConstant.SEPERATOR);
         p.setMessageBuilder(new JlspMessageBuilder());
         p.setAlreadyInitialized(true);

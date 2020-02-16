@@ -1,5 +1,7 @@
 package name.xs.rpc.common.context;
 
+import name.xs.rpc.common.beans.protocol.Decoder;
+import name.xs.rpc.common.beans.protocol.Encoder;
 import name.xs.rpc.common.beans.protocol.MessageBuilder;
 import name.xs.rpc.common.beans.remote.DecoderAdapter;
 import name.xs.rpc.common.beans.remote.EncoderAdapter;
@@ -16,6 +18,8 @@ public class ProtocolContext {
 
     private EncoderAdapter encoder;
     private DecoderAdapter decoder;
+    private Decoder xsDecoder;
+    private Encoder xsEncoder;
     private byte[] seperateCharacter;
     private MessageBuilder messageBuilder;
     private boolean alreadyInitialized = false;
@@ -78,5 +82,21 @@ public class ProtocolContext {
 
     public void setAlreadyInitialized(boolean alreadyInitialized) {
         this.alreadyInitialized = alreadyInitialized;
+    }
+
+    public Decoder getXsDecoder() {
+        return xsDecoder;
+    }
+
+    public void setXsDecoder(Decoder xsDecoder) {
+        this.xsDecoder = xsDecoder;
+    }
+
+    public Encoder getXsEncoder() {
+        return xsEncoder;
+    }
+
+    public void setXsEncoder(Encoder xsEncoder) {
+        this.xsEncoder = xsEncoder;
     }
 }

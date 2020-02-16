@@ -86,16 +86,15 @@ public class XsRpcNettyServerHandler extends ChannelInboundHandlerAdapter implem
         }
         Class<?>[] paramTypeArr = TypeConvertUtils.strArr2ClassArr(request.getParameterTypes());
         Object[] argArr = TypeConvertUtils.strArr2objArr(request.getArguments(), paramTypeArr);
-        Class<?> interfase = Class.forName(interfaseName);
-        Method method = interfase.getMethod(methodName, paramTypeArr);
+        Object proxyInstance = ProxyContext.instance().getLocalProxyObjMap().get(interfaseName);
+        if (proxyInstance == null) {
+            throw new XsRpcException(ErrorEnum.SERVER_02);
+        }
+        Method method = Class.forName(interfaseName).getMethod(methodName, paramTypeArr);
         if (method == null) {
             throw new XsRpcException(ErrorEnum.SERVER_02);
         }
-        Object instance = ProxyContext.instance().getLocalProxyObjMap().get(interfaseName);
-        if (instance == null) {
-            throw new XsRpcException(ErrorEnum.SERVER_02);
-        }
-        Object returnResult = method.invoke(instance, argArr);
+        Object returnResult = method.invoke(proxyInstance, argArr);
         CommonResult result = new CommonResult();
         result.setValue(returnResult);
         return result;
