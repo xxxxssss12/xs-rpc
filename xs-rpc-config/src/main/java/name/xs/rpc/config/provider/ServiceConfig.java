@@ -1,5 +1,9 @@
 package name.xs.rpc.config.provider;
 
+import name.xs.rpc.config.AppConfig;
+import name.xs.rpc.config.RegistryConfig;
+import name.xs.rpc.proxy.ProxyFactory;
+
 import java.util.List;
 
 /**
@@ -8,6 +12,9 @@ import java.util.List;
  * create time: 2019-06-30 17:07
  */
 public class ServiceConfig<T> {
+
+    private AppConfig appConfig;
+    private RegistryConfig registryConfig;
 
     private String serviceId;           // 服务id
     private String name;                // 服务名称
@@ -66,7 +73,14 @@ public class ServiceConfig<T> {
         this.serviceId = serviceId;
     }
 
-    public void export() {
-
+    public T export() {
+        // TODO
+        T localProxy = null;
+        try {
+             localProxy = ProxyFactory.getLocalProxy(interfaceClass, implementsObj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return localProxy;
     }
 }

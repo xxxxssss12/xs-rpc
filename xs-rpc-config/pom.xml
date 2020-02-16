@@ -14,6 +14,11 @@
     <artifactId>xs-rpc-config</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <dependencies>
+        <dependency>
+            <groupId>name.xs</groupId>
+            <artifactId>xs-rpc-proxy</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>
