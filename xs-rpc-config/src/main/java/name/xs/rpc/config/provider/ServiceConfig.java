@@ -73,14 +73,14 @@ public class ServiceConfig<T> {
         this.serviceId = serviceId;
     }
 
-    public T export() {
-        // TODO
-        T localProxy = null;
-        try {
-             localProxy = ProxyFactory.getLocalProxy(interfaceClass, implementsObj);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return localProxy;
-    }
+//    public T export() {
+//        // TODO 贫血模型，export方法不应放在该pojo中。需要挪出去。
+//        T localProxy = null;
+//        try {
+//             localProxy = ProxyFactory.getLocalProxy(interfaceClass, implementsObj);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return localProxy;
+//    }
 }
