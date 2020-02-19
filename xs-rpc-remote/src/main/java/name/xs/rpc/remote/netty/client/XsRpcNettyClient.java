@@ -38,6 +38,9 @@ public class XsRpcNettyClient implements Client {
     private ChannelFuture channel;
     private EventLoopGroup group;
 
+    private String remoteHost;
+    private Integer remotePort;
+
     public XsRpcNettyClient(String host, Integer port, ClientHandler handler) {
         start(host, port, handler);
     }
@@ -172,5 +175,15 @@ public class XsRpcNettyClient implements Client {
             return false;
         }
         return !group.isShutdown();
+    }
+
+    @Override
+    public String getRemoteHost() {
+        return this.remoteHost;
+    }
+
+    @Override
+    public int getRemotePort() {
+        return this.remotePort == null ? 0 : this.remotePort;
     }
 }

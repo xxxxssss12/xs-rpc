@@ -20,4 +20,7 @@ public interface Client {
 
     boolean isRunning();
 
+    String getRemoteHost();
+    int getRemotePort();
+
 }

@@ -7,7 +7,9 @@ package name.xs.rpc.common.event;
  * create time:2020-02-18 16:56:52
  */
 public enum EventEnum {
-    LOCAL_PROXY_INITIALIZED();
+    SERVICE_PROVIDER_CHANGE,
+    LOCAL_PROXY_INITIALIZED
+    ;
 
 
 }

@@ -27,7 +27,7 @@ public class DefaultEventBus implements EventBus {
             try {
                 listener.onEventPublish(event);
             } catch (Exception e) {
-                Constant.LOG.error("event publish fail, listenerId=" + (listener == null ? "null" : listener.id), e);
+                Constant.LOG.error("event publish fail, listenerId=" + (listener == null ? "null" : listener.getId()), e);
             }
         }
         return true;
@@ -35,20 +35,20 @@ public class DefaultEventBus implements EventBus {
 
     @Override
     public boolean subscribe(EventEnum eventEnum, EventListener eventListener) {
-        if (eventEnum == null || eventListener == null || eventListener.id == null || eventListener.id.isEmpty()) {
+        if (eventEnum == null || eventListener == null || eventListener.getId() == null || eventListener.getId().isEmpty()) {
             return false;
         }
         Map<String, EventListener> listenerMap = null;
         if (!listenerHolder.containsKey(eventEnum)) {
             listenerMap = listenerHolder.putIfAbsent(eventEnum, new ConcurrentHashMap<>());
         }
-        listenerMap.putIfAbsent(eventListener.id, eventListener);
+        listenerMap.putIfAbsent(eventListener.getId(), eventListener);
         return true;
     }
 
     @Override
     public boolean unsubscribe(EventEnum eventEnum, EventListener eventListener) {
-        if (eventEnum == null || eventListener == null || eventListener.id == null || eventListener.id.isEmpty()) {
+        if (eventEnum == null || eventListener == null || eventListener.getId() == null || eventListener.getId().isEmpty()) {
             return false;
         }
         if (!listenerHolder.containsKey(eventEnum)) {
@@ -58,7 +58,7 @@ public class DefaultEventBus implements EventBus {
         if (listenerMap == null || listenerMap.isEmpty()) {
             return true;
         }
-        listenerMap.remove(eventListener.id);
+        listenerMap.remove(eventListener.getId());
         return true;
     }
 

@@ -1,4 +1,4 @@
-package name.xs.rpc.test.jedis;
+package name.xs.registry.jedis;
 
 import java.io.Serializable;
 

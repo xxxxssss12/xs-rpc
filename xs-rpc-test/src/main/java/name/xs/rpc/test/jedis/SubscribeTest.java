@@ -1,5 +1,9 @@
 package name.xs.rpc.test.jedis;
 
+import name.xs.registry.jedis.MyJedisPubSub;
+import name.xs.registry.jedis.RedisConfig;
+import name.xs.registry.jedis.RedisUtil;
+
 /**
  * @author xs
  * create time:  2020/2/15 20:17

@@ -6,9 +6,9 @@ package name.xs.rpc.common.event;
  * @author xs
  * create time:2020-02-18 19:39:23
  */
-public interface EventListener {
+public interface EventListener<T> {
     // 用它防止重复订阅
-    String id = null;
+    String getId();
 
-    void onEventPublish(Event<?> event);
+    void onEventPublish(Event<T> event);
 }

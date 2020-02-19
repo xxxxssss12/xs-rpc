@@ -1,4 +1,4 @@
-package name.xs.rpc.test.jedis;
+package name.xs.registry.jedis;
 
 import name.xs.rpc.common.constants.Constant;
 import name.xs.rpc.common.enums.ErrorEnum;
@@ -15,6 +15,7 @@ import java.util.Set;
  * create time:  2020/2/15 19:53
  */
 public class RedisUtil {
+
     private RedisConfig redisConfig;
     private boolean alreadyInitialized = false;
 

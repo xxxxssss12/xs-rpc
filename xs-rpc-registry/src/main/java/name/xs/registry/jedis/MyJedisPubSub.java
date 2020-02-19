@@ -1,4 +1,4 @@
-package name.xs.rpc.test.jedis;
+package name.xs.registry.jedis;
 
 import name.xs.rpc.common.constants.Constant;
 import redis.clients.jedis.JedisPubSub;
