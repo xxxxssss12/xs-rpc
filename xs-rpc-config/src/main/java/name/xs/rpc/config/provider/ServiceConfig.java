@@ -2,7 +2,6 @@ package name.xs.rpc.config.provider;
 
 import name.xs.rpc.config.AppConfig;
 import name.xs.rpc.config.RegistryConfig;
-import name.xs.rpc.proxy.ProxyFactory;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package name.xs.registry;
 
-import name.xs.rpc.config.ProviderMetadata;
+import name.xs.rpc.common.beans.registry.ProviderMetaInfo;
 import name.xs.rpc.config.provider.ServiceConfig;
 
 import java.util.List;
@@ -12,8 +12,8 @@ import java.util.List;
  * create time:  2020/2/17 17:51
  */
 public interface RegistryTransfer {
-    ProviderMetadata export(ServiceConfig<?> serviceConfig);
+    ProviderMetaInfo export(ServiceConfig<?> serviceConfig);
 
-    List<ProviderMetadata> pull(String interfaceName);
+    List<ProviderMetaInfo> pull(String interfaceName);
 
 }

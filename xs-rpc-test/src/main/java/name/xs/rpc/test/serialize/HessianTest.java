@@ -15,7 +15,7 @@ import com.caucho.hessian.io.HessianInput;
 import com.caucho.hessian.io.HessianOutput;
 
 /**
- * @author 熊顺
+ * @author xs
  * @CreateTime 2019/12/13 10:17
  */
 public class HessianTest {

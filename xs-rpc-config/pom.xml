@@ -16,11 +16,6 @@
     <dependencies>
         <dependency>
             <groupId>name.xs</groupId>
-            <artifactId>xs-rpc-proxy</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>name.xs</groupId>
             <artifactId>xs-rpc-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>

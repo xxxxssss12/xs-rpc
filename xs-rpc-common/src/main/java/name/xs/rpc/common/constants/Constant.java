@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author 熊顺
+ * @author xs
  * @CreateTime 2019/12/11 9:50
  */
 public class Constant {

@@ -5,7 +5,7 @@ import name.xs.rpc.common.context.XsRpcContext;
 import name.xs.rpc.common.event.Event;
 import name.xs.rpc.common.event.EventEnum;
 import name.xs.rpc.common.event.EventListener;
-import name.xs.rpc.config.ProviderMetadata;
+import name.xs.rpc.common.beans.registry.ProviderMetaInfo;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,12 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author xs
  * create time:2020-02-18 15:45:23
  */
-public class ProviderMetadataManager implements EventListener<String> {
-
-    /**
-     * key=inerfaceName，value=provider元数据
-     */
-    private Map<String, List<ProviderMetadata>> interfaceNameIndexMap = new ConcurrentHashMap<>();
+public class ProviderMetaInfoManager implements EventListener<String> {
 
     /**
      * key=host:port，value=providerInterfaceName
@@ -32,19 +27,19 @@ public class ProviderMetadataManager implements EventListener<String> {
 
     private RegistryTransfer registryTransfer;
 
-    public ProviderMetadataManager() {
+    public ProviderMetaInfoManager() {
         XsRpcContext.instance().getEventBus().subscribe(EventEnum.SERVICE_PROVIDER_CHANGE, this);
         this.registryTransfer = new JedisRegistryTransfer();
     }
 
-    public ProviderMetadataManager(RegistryTransfer registryTransfer) {
+    public ProviderMetaInfoManager(RegistryTransfer registryTransfer) {
         XsRpcContext.instance().getEventBus().subscribe(EventEnum.SERVICE_PROVIDER_CHANGE, this);
         this.registryTransfer = registryTransfer;
     }
 
     @Override
     public String getId() {
-        return "ProviderMetadataManager";
+        return "ProviderMetaInfoManager";
     }
 
     @Override
@@ -63,23 +58,21 @@ public class ProviderMetadataManager implements EventListener<String> {
         if (!XsRpcContext.instance().getProxyContext().getRemoteProxyObjMap().containsKey(interfaceName)) {
             return;
         }
-        List<ProviderMetadata> providerMetadataList = registryTransfer.pull(interfaceName);
+        List<ProviderMetaInfo> providerMetadataList = registryTransfer.pull(interfaceName);
         if (providerMetadataList != null) {
             handleMetadataList(interfaceName, providerMetadataList);
         }
     }
 
-    private void handleMetadataList(String interfaceName, List<ProviderMetadata> providerMetadataList) {
+    private void handleMetadataList(String interfaceName, List<ProviderMetaInfo> providerMetadataList) {
         // 即便是空数组，也需要刷新本地索引
         if (providerMetadataList == null) {
             return;
         }
-        if (!interfaceNameIndexMap.containsKey(interfaceName)) {
-            interfaceNameIndexMap.putIfAbsent(interfaceName, providerMetadataList);
-        }
+        XsRpcContext.instance().getRegistryContext().refreshIndex(interfaceName, providerMetadataList);
     }
 
-    private String getHostInfo(ProviderMetadata providerMetadata) {
+    private String getHostInfo(ProviderMetaInfo providerMetadata) {
         if (providerMetadata == null) {
             return null;
         }

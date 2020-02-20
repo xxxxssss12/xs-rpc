@@ -23,6 +23,8 @@ public class XsRpcContext {
 
     public ProtocolContext getProtocolContext() {return ProtocolContext.instance(); }
 
+    public RegistryContext getRegistryContext() {return RegistryContext.instance(); }
+
     public EventBus getEventBus() {
         return eventBus;
     }

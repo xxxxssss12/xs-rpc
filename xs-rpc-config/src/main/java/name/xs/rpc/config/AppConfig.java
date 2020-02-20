@@ -1,7 +1,7 @@
 package name.xs.rpc.config;
 
 /**
- * @author 熊顺
+ * @author xs
  * @CreateTime 2019/12/10 19:57
  */
 public class AppConfig {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author 熊顺
+ * @author xs
  * @CreateTime 2020/1/10 16:49
  */
 public class TestBeanA implements Serializable {

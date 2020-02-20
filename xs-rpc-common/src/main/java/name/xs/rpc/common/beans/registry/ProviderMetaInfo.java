@@ -1,4 +1,4 @@
-package name.xs.rpc.config;
+package name.xs.rpc.common.beans.registry;
 
 import java.io.Serializable;
 
@@ -12,10 +12,10 @@ import java.io.Serializable;
  * 6. 服务暴露时间
  * 7. 方法名，逗号分割
  *
- * @author 熊顺
- * @CreateTime 2019/12/10 10:06
+ * @author xs
+ * create time 2019/12/10 10:06
  */
-public class ProviderMetadata implements Serializable {
+public class ProviderMetaInfo implements Serializable {
     private String host;
     private Integer port;
     private String serviceId;

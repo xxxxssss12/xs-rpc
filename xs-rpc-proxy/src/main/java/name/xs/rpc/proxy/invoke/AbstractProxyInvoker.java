@@ -22,7 +22,7 @@ public abstract class AbstractProxyInvoker<T> implements Invoker, InvocationHand
             throw new XsRpcException(ErrorEnum.PROXY_02);
         }
         if (rs.hasException()) {
-            throw new XsRpcException(ErrorEnum.PROXY_03, rs.getException());
+            throw new XsRpcException(ErrorEnum.PROXY_03, rs.getException().getClassName(), rs.getException().getMessage());
         }
         return rs.getValue();
     }

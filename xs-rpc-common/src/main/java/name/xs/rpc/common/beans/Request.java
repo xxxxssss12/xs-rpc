@@ -1,7 +1,7 @@
 package name.xs.rpc.common.beans;
 
 /**
- * @author 熊顺
+ * @author xs
  * create time:2020-01-10 15:56:00
  */
 public interface Request {

@@ -8,7 +8,7 @@ package name.xs.rpc.common.beans;
  * 5. Arguments - 入参值，由string转化
  * 6. signatures 签名
  *
- * @author 熊顺
+ * @author xs
  * @CreateTime 2020/1/10 14:27
  */
 public class CommonRequest implements Request {

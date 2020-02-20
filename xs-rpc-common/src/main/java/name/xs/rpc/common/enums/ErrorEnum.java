@@ -8,7 +8,7 @@ public enum ErrorEnum {
     SUCCESS("000000", "success"),
     PROXY_01("000001", "can not find instance"),// 没找到实例
     PROXY_02("000002", "wrong method return"),// 返回数据错误
-    PROXY_03("000003", "remote request exception"),// 远程调用异常
+    PROXY_03("000003", "remote request exception; remoteExceptionClass: %s; remoteExceptionMsg: %s"),// 远程调用异常
     PROXY_04("000004", "instance can't be null in local proxy init"), // 初始化本地代理时，入参实例不能为空
     NETTY_01("001001", "netty client start error"), // netty客户端启动异常
     NETTY_02("001002", "netty client has bean start"), // netty客户端已经启动

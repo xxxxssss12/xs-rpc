@@ -5,7 +5,7 @@ import name.xs.rpc.common.beans.CommonRequest;
 import name.xs.rpc.common.beans.CommonResult;
 import name.xs.rpc.common.beans.Result;
 import name.xs.rpc.common.utils.TypeConvertUtils;
-import name.xs.rpc.config.ProviderMetadata;
+import name.xs.rpc.common.beans.registry.ProviderMetaInfo;
 import name.xs.rpc.common.beans.protocol.Message;
 import name.xs.rpc.common.beans.remote.Client;
 import name.xs.rpc.common.context.RemoteContext;
@@ -32,7 +32,7 @@ public class RemoteInvoker<T> extends AbstractProxyInvoker<T> {
         String methodName = method.getName();
         // TODO 1. 从本地拉取所有providerMetaInfo
         // 2. 负载均衡策略选择一个provider
-        ProviderMetadata metadata = testMetadata(methodName);
+        ProviderMetaInfo metadata = testMetadata(methodName);
         // 3. 封装request
         CommonRequest request = buildRequest(metadata, methodName, parameterTypes, arguments);
         Client client = RemoteContext.instance().getClient(metadata.getHost(), metadata.getPort());
@@ -58,8 +58,8 @@ public class RemoteInvoker<T> extends AbstractProxyInvoker<T> {
         return msg;
     }
 
-    private ProviderMetadata testMetadata(String methodName) {
-        ProviderMetadata metadata = new ProviderMetadata();
+    private ProviderMetaInfo testMetadata(String methodName) {
+        ProviderMetaInfo metadata = new ProviderMetaInfo();
         metadata.setExportTimestamp(System.currentTimeMillis());
         metadata.setHost("127.0.0.1");
         metadata.setInterfaceName(insterfase.getName());
@@ -69,7 +69,7 @@ public class RemoteInvoker<T> extends AbstractProxyInvoker<T> {
         return metadata;
     }
 
-    private CommonRequest buildRequest(ProviderMetadata metadata, String methodName, Class<?>[] parameterTypes, Object[] arguments) {
+    private CommonRequest buildRequest(ProviderMetaInfo metadata, String methodName, Class<?>[] parameterTypes, Object[] arguments) {
         CommonRequest request = new CommonRequest();
         request.setMethodName(methodName);
         request.setServiceId(metadata.getServiceId());

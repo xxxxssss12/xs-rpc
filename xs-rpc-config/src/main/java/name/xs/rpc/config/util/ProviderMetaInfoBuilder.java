@@ -1,6 +1,6 @@
 package name.xs.rpc.config.util;
 
-import name.xs.rpc.config.ProviderMetadata;
+import name.xs.rpc.common.beans.registry.ProviderMetaInfo;
 import name.xs.rpc.config.provider.MethodConfig;
 import name.xs.rpc.config.provider.ProviderConfig;
 import name.xs.rpc.config.provider.ServiceConfig;
@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author 熊顺
+ * @author xs
  * @CreateTime 2019/12/10 10:08
  */
-public class ProviderMetadataBuilder {
+public class ProviderMetaInfoBuilder {
 
-    public static ProviderMetadata buildMetadata(ProviderConfig providerConfig, ServiceConfig serviceConfig) {
-        ProviderMetadata metadata = new ProviderMetadata();
+    public static ProviderMetaInfo buildMetaInfo(ProviderConfig providerConfig, ServiceConfig serviceConfig) {
+        ProviderMetaInfo metadata = new ProviderMetaInfo();
         metadata.setServiceId(serviceConfig.getServiceId());
         metadata.setHost(providerConfig.getHost());
         metadata.setPort(providerConfig.getPort());

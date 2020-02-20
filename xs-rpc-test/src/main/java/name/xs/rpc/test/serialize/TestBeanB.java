@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author 熊顺
+ * @author xs
  * @CreateTime 2020/1/10 16:49
  */
 public class TestBeanB implements Serializable {

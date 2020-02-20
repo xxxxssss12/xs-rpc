@@ -11,7 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
 /**
- * @author 熊顺
+ * @author xs
  * @CreateTime 2019/12/11 9:45
  */
 public class YamlTest {
