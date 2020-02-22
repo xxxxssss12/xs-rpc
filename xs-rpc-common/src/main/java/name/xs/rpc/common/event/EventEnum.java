@@ -8,7 +8,8 @@ package name.xs.rpc.common.event;
  */
 public enum EventEnum {
     SERVICE_PROVIDER_CHANGE,
-    LOCAL_PROXY_INITIALIZED
+    LOCAL_PROXY_INITIALIZED,
+    REMOTE_PROXY_INITIALIZED
     ;
 
 

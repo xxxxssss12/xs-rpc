@@ -13,4 +13,6 @@ public class Constant {
     public static final Logger LOG = LoggerFactory.getLogger(LOGGER_NAME);
 
     public static final int CPU_NUM = Runtime.getRuntime().availableProcessors();
+
+    public static final String REGISTRY_SUBSCRIBE_CHANNEL = "xs-rpc";
 }
