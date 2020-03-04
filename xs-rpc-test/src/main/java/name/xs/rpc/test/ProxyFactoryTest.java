@@ -17,7 +17,7 @@ public class ProxyFactoryTest {
             System.out.println(newService.toJson("testKey1", "testV1", "testKey2", "testV2"));
             System.out.println(newService.substract(1, 2));
         } catch (Exception e) {
-            Constant.LOG.error("main error", e);
+            Constant.LOG.error(ProxyFactoryTest.class, "main error", e);
         }
         Client c = RemoteContext.instance().getClient("127.0.0.1", 10020);
         if (c!=null) {

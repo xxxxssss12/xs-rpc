@@ -1,5 +1,6 @@
 package name.xs.rpc.common.constants;
 
+import name.xs.rpc.common.XsRpcLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +11,7 @@ import org.slf4j.LoggerFactory;
 public class Constant {
     public static final String LOGGER_NAME = "XSRPC";
 
-    public static final Logger LOG = LoggerFactory.getLogger(LOGGER_NAME);
+    public static final XsRpcLogger LOG = new XsRpcLogger(LoggerFactory.getLogger(LOGGER_NAME));
 
     public static final int CPU_NUM = Runtime.getRuntime().availableProcessors();
 

@@ -52,7 +52,7 @@ public class RedisUtil {
                     , redisConfig.getPassword());
         }
         this.alreadyInitialized = true;
-        Constant.LOG.info("RedisUtil init success: {}:{}", redisConfig.getHost(), redisConfig.getPort());
+        Constant.LOG.info(this.getClass(), "RedisUtil init success: {}:{}", redisConfig.getHost(), redisConfig.getPort());
     }
 
     public Jedis getJedis() {
@@ -64,7 +64,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             return jedis.incrByFloat(key, value);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         }
         return -1L;
     }
@@ -79,7 +79,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             return jedis.incrBy(key, value);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         }
         return -1L;
     }
@@ -128,7 +128,7 @@ public class RedisUtil {
                 return true;
             }
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         }
         return false;
     }
@@ -138,7 +138,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             result = jedis.get(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         }
         return result;
     }
@@ -154,7 +154,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             result = jedis.get(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         }
         return result;
     }
@@ -164,7 +164,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             result = jedis.keys(pattern);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         }
         return result;
     }
@@ -174,7 +174,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             return jedis.del(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         }
         return 0;
     }
@@ -183,7 +183,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             return jedis.del(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         }
         return 0;
     }
@@ -193,7 +193,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             return jedis.exists(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         }
         return false;
     }
@@ -202,7 +202,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             return jedis.hexists(key, field);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         }
         return false;
     }
@@ -215,7 +215,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             return jedis.lpush(key, value);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         }
     }
@@ -228,7 +228,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             return jedis.rpush(key, value);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         }
     }
@@ -240,7 +240,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             return jedis.lpop(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         }
     }
@@ -252,7 +252,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             return jedis.rpop(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         }
     }
@@ -264,7 +264,7 @@ public class RedisUtil {
         try (Jedis jedis = pool.getResource()) {
             return jedis.llen(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         }
     }
@@ -278,7 +278,7 @@ public class RedisUtil {
             Long score = jedis.zcard(key);
             jedis.zadd(key, ++score, value);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -292,7 +292,7 @@ public class RedisUtil {
         try {
             jedis.zadd(key, score, value);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -306,7 +306,7 @@ public class RedisUtil {
         try {
             return jedis.zadd(key, score, value);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -321,7 +321,7 @@ public class RedisUtil {
         try {
             return jedis.zincrby(key, score, value).longValue();
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -336,7 +336,7 @@ public class RedisUtil {
         try {
             return jedis.zrevrank(key, value);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -353,7 +353,7 @@ public class RedisUtil {
             Set<String> sets = jedis.zrange(key, 0, -1);
             return sets;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         } finally {
             jedis.close();
@@ -365,7 +365,7 @@ public class RedisUtil {
         try {
             return jedis.scriptLoad(script);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -381,7 +381,7 @@ public class RedisUtil {
             Set<String> sets = jedis.zrange(key, 0, size);
             return sets;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         } finally {
             jedis.close();
@@ -397,7 +397,7 @@ public class RedisUtil {
             Set<String> sets = jedis.zrange(key, start, size);
             return sets;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         } finally {
             jedis.close();
@@ -413,7 +413,7 @@ public class RedisUtil {
             Set<String> sets = jedis.zrevrange(key, start, size);
             return sets;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         } finally {
             jedis.close();
@@ -429,7 +429,7 @@ public class RedisUtil {
             Set<String> sets = jedis.zrevrangeByScore(key, Double.MAX_VALUE, Double.MIN_VALUE, start, size);
             return sets;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         } finally {
             jedis.close();
@@ -442,7 +442,7 @@ public class RedisUtil {
             Long total = jedis.zcard(key);
             return total;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return 0L;
         } finally {
             jedis.close();
@@ -459,7 +459,7 @@ public class RedisUtil {
             Double score = jedis.zscore(key, member);
             return score;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return 0.0;
         } finally {
             if (jedis != null)
@@ -477,7 +477,7 @@ public class RedisUtil {
             Set<Tuple> score = jedis.zrevrangeWithScores(key, start,end);
             return score;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             if (jedis != null)
                 jedis.close();
@@ -494,7 +494,7 @@ public class RedisUtil {
             Long count = jedis.zrem(key, values);
             return count;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return 0l;
         } finally {
             jedis.close();
@@ -510,7 +510,7 @@ public class RedisUtil {
             Long cnt = jedis.zcount(key, min, max);
             return cnt;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         } finally {
             jedis.close();
@@ -524,7 +524,7 @@ public class RedisUtil {
         try {
             map = jedis.hgetAll(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -537,7 +537,7 @@ public class RedisUtil {
         try {
             set = jedis.hkeys(mapKey);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -548,7 +548,7 @@ public class RedisUtil {
         try {
             jedis.hmset(key, values);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -560,7 +560,7 @@ public class RedisUtil {
             jedis.hmset(key, values);
             jedis.expire(key, expireSeconds);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -573,7 +573,7 @@ public class RedisUtil {
             jedis.hset(key, field, fieldVal);
             return true;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -588,7 +588,7 @@ public class RedisUtil {
             jedis.expire(key,expire);
             return true;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -603,7 +603,7 @@ public class RedisUtil {
             }
             return true;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -619,7 +619,7 @@ public class RedisUtil {
             jedis.expire(key, expire);
             return true;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -647,7 +647,7 @@ public class RedisUtil {
             }
             return true;
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             if (jedis != null) {
                 jedis.disconnect();
@@ -662,7 +662,7 @@ public class RedisUtil {
         try {
             return jedis.incr(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -674,7 +674,7 @@ public class RedisUtil {
         try {
             return jedis.hincrBy(key, field, 1);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -686,7 +686,7 @@ public class RedisUtil {
         try {
             return jedis.hincrBy(key, field, num);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -698,7 +698,7 @@ public class RedisUtil {
         try {
             return jedis.hincrByFloat(key, field, num);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -710,7 +710,7 @@ public class RedisUtil {
         try {
             return jedis.decr(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -722,7 +722,7 @@ public class RedisUtil {
         try {
             return jedis.decrBy(key, value);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -734,7 +734,7 @@ public class RedisUtil {
         try {
             return jedis.setnx(key, "1");
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -746,7 +746,7 @@ public class RedisUtil {
         try {
             return jedis.setnx(key, value);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -765,7 +765,7 @@ public class RedisUtil {
             return 0;
 
         } catch (Exception e) {
-            Constant.LOG.error("redis异常:", e);
+            Constant.LOG.error(this.getClass(), "redis异常:", e);
         } finally {
             jedis.close();
         }
@@ -777,7 +777,7 @@ public class RedisUtil {
         try {
             jedis.expire(key, second);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -788,7 +788,7 @@ public class RedisUtil {
         try {
             jedis.expireAt(key,unixtime);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -799,7 +799,7 @@ public class RedisUtil {
         try {
             return jedis.sadd(key, members);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -811,7 +811,7 @@ public class RedisUtil {
         try {
             return jedis.scard(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -823,7 +823,7 @@ public class RedisUtil {
         try {
             return jedis.smembers(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -835,7 +835,7 @@ public class RedisUtil {
         try {
             return jedis.spop(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -852,7 +852,7 @@ public class RedisUtil {
         try {
             return jedis.spop(key, count);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -864,7 +864,7 @@ public class RedisUtil {
         try {
             return jedis.srem(redisKey, strings);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             jedis.close();
         }
@@ -876,7 +876,7 @@ public class RedisUtil {
         try {
             return jedis.hmget(key, fields);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         } finally {
             jedis.close();
@@ -888,7 +888,7 @@ public class RedisUtil {
         try {
             return jedis.hget(key, field);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         } finally {
             jedis.close();
@@ -900,7 +900,7 @@ public class RedisUtil {
         try {
             return jedis.hvals(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         } finally {
             jedis.close();
@@ -911,7 +911,7 @@ public class RedisUtil {
         try {
             return jedis.ttl(key);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return -2L;
         } finally {
             jedis.close();
@@ -923,7 +923,7 @@ public class RedisUtil {
         try {
             return jedis.lrange(key, start, end);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return null;
         } finally {
             jedis.close();
@@ -936,7 +936,7 @@ public class RedisUtil {
         try {
             return jedis.lrem(key, 0, value);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
             return 0L;
         } finally {
             jedis.close();
@@ -949,7 +949,7 @@ public class RedisUtil {
             jedis = pool.getResource();
             return jedis.eval(script, keys, args);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             if (jedis != null) {
                 jedis.close();
@@ -965,7 +965,7 @@ public class RedisUtil {
             jedis = pool.getResource();
             return jedis.hlen(mapKey);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             if (jedis != null) {
                 jedis.close();
@@ -987,7 +987,7 @@ public class RedisUtil {
             jedis = pool.getResource();
             return jedis.srandmember(key, count);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             if (jedis != null) {
                 jedis.close();
@@ -1002,7 +1002,7 @@ public class RedisUtil {
             jedis = pool.getResource();
             return jedis.evalsha(sha, keys, args);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             if (jedis != null) {
                 jedis.close();
@@ -1021,7 +1021,7 @@ public class RedisUtil {
             jedis = pool.getResource();
             return jedis.sismember(key, member);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             if (jedis != null) {
                 jedis.close();
@@ -1036,7 +1036,7 @@ public class RedisUtil {
             jedis = pool.getResource();
             return jedis.hdel(key, field);
         } catch (Exception e) {
-            Constant.LOG.error("redis error", e);
+            Constant.LOG.error(this.getClass(), "redis error", e);
         } finally {
             if (jedis != null) {
                 jedis.close();

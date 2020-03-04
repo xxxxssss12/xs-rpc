@@ -11,6 +11,6 @@ public class ProviderChangeJedisPubSub extends JedisPubSub {
 
     @Override
     public void onMessage(String channel, String message) {
-        Constant.LOG.info("{} channel={}, message={}", "MyJedisPubSub", channel, message);
+        Constant.LOG.info(this.getClass(), "channel={}, message={}", channel, message);
     }
 }

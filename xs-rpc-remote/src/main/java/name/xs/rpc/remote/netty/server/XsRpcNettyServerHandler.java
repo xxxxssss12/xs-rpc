@@ -33,7 +33,7 @@ public class XsRpcNettyServerHandler extends ChannelInboundHandlerAdapter implem
      */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        Constant.LOG.info("[XsRpcNettyServerHandler] 客户端连入：" + ctx.channel().remoteAddress().toString());
+        Constant.LOG.info(this.getClass(), "客户端连入：{}", ctx.channel().remoteAddress().toString());
     }
     // 接受请求后处理类
     @Override
@@ -42,7 +42,7 @@ public class XsRpcNettyServerHandler extends ChannelInboundHandlerAdapter implem
         try {
             if (msg instanceof Message) {
                 Message msg1 = (Message) msg;
-                Constant.LOG.debug("[XsRpcNettyServerHandler] 客户端发送数据：" + JSON.toJSONString(msg));
+                Constant.LOG.debug(this.getClass(), "客户端发送数据：{}", JSON.toJSONString(msg));
                 sessionId = msg1.getSessionId();
                 CommonRequest request = JSON.parseObject(msg1.getData(), CommonRequest.class);
                 CommonResult result = doInvoke(request);
@@ -52,12 +52,12 @@ public class XsRpcNettyServerHandler extends ChannelInboundHandlerAdapter implem
 
                 Message message = ProtocolContext.instance().getMessageBuilder().buildMessage(content, sessionId);
                 ctx.writeAndFlush(message);
-                Constant.LOG.debug("[XsRpcNettyServerHandler] 服务端响应：" + message.getData());
+                Constant.LOG.debug(this.getClass(), "服务端响应：{}", message.getData());
             } else {
                 throw new XsRpcException(ErrorEnum.SERVER_01);
             }
         } catch (Exception e) {
-            Constant.LOG.error("[XsRpcNettyServerHandler] server invoke error", e);
+            Constant.LOG.error(this.getClass(), "server invoke error", e);
             CommonResult result = new CommonResult();
             XsRpcExceptionSerialize serialize = new XsRpcExceptionSerialize();
             serialize.setClassName(e.getClass().getName());
@@ -70,7 +70,7 @@ public class XsRpcNettyServerHandler extends ChannelInboundHandlerAdapter implem
                 message = ProtocolContext.instance().getMessageBuilder().buildMessage(JSON.toJSONString(result));
             }
             ctx.writeAndFlush(message);
-            Constant.LOG.debug("[XsRpcNettyServerHandler] 服务端响应：" + message.getData());
+            Constant.LOG.debug(this.getClass(), "服务端响应：{}", message.getData());
         }
     }
 

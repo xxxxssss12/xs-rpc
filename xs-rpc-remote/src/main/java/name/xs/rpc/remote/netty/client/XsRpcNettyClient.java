@@ -46,7 +46,7 @@ public class XsRpcNettyClient implements Client {
     }
     @Override
     public void start(String host, Integer port, ClientHandler handler) {
-        Constant.LOG.info("[XsRpcNettyClient] do start...");
+        Constant.LOG.info(this.getClass(), "do start...");
         if (isRunning()) {
             throw new XsRpcException(ErrorEnum.NETTY_02);
         }
@@ -85,7 +85,7 @@ public class XsRpcNettyClient implements Client {
             // Start the client.
             final ChannelFuture f = b.connect(host, port).sync();
             channel = f;
-            Constant.LOG.info("[XsRpcNettyClient] do start... bootstrap config over");
+            Constant.LOG.info(this.getClass(), "do start... bootstrap config over");
             // Wait until the connection is closed.
             final CountDownLatch c = new CountDownLatch(1);
             Thread t = new Thread(() -> {
@@ -93,7 +93,7 @@ public class XsRpcNettyClient implements Client {
                     c.countDown();
                     f.channel().closeFuture().sync();
                 } catch (InterruptedException e) {
-                    Constant.LOG.error("[XsRpcNettyClient] channel start error!", e);
+                    Constant.LOG.error(this.getClass(), "channel start error!", e);
                 } finally {
                     group.shutdownGracefully();
                 }
@@ -102,10 +102,10 @@ public class XsRpcNettyClient implements Client {
             t.start();
             c.await();
             RemoteContext.instance().addClient(host, port, this);
-            Constant.LOG.info("[XsRpcNettyClient] do start... finish!remote:host={}, port={}", host, port);
+            Constant.LOG.info(this.getClass(), "do start... finish!remote:host={}, port={}", host, port);
 //            return f;
         } catch (InterruptedException e) {
-            Constant.LOG.error("[XsRpcNettyClient] do start... error!", e);
+            Constant.LOG.error(this.getClass(), "do start... error!", e);
             throw new XsRpcException(ErrorEnum.NETTY_01);
         }
     }
@@ -155,16 +155,16 @@ public class XsRpcNettyClient implements Client {
             }
             return responseMessage;
         } catch (InterruptedException e) {
-            Constant.LOG.error("[XsRpcNettyClient] send error", e);
+            Constant.LOG.error(this.getClass(), "send error", e);
             throw new XsRpcException(ErrorEnum.NETTY_04);
         } catch (ExecutionException e) {
-            Constant.LOG.error("[XsRpcNettyClient] send error", e);
+            Constant.LOG.error(this.getClass(), "send error", e);
             throw new XsRpcException(ErrorEnum.NETTY_05);
         } catch (TimeoutException e) {
-            Constant.LOG.error("[XsRpcNettyClient] send timeout", e);
+            Constant.LOG.error(this.getClass(), "send timeout", e);
             throw new XsRpcException(ErrorEnum.NETTY_06);
         } catch (Exception e) {
-            Constant.LOG.error("[XsRpcNettyClient] send error", e);
+            Constant.LOG.error(this.getClass(), "send error", e);
             throw new XsRpcException(ErrorEnum.NETTY_07);
         }
     }

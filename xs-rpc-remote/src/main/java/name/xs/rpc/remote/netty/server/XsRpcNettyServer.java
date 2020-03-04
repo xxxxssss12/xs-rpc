@@ -35,7 +35,7 @@ public class XsRpcNettyServer implements Server {
 
     @Override
     public void start(Integer port, ServerHandler handler) {
-        Constant.LOG.info("[XsRpcNettyServer] start bootstrap");
+        Constant.LOG.info(this.getClass(), "start bootstrap");
         /* 步骤
          * 创建一个ServerBootstrap b实例用来配置启动服务器
          * b.group指定NioEventLoopGroup来接收处理新连接
@@ -75,12 +75,12 @@ public class XsRpcNettyServer implements Server {
 
             // Start the server.
             ChannelFuture f = b.bind(port).sync();
-            Constant.LOG.info("[XsRpcNettyServer] ServerBootstrap配置启动完成,port={}", port);
+            Constant.LOG.info(this.getClass(), "ServerBootstrap配置启动完成,port={}", port);
             // Wait until the server socket is closed.
             f.channel().closeFuture().sync();
-            Constant.LOG.info("[XsRpcNettyServer] start finish");
+            Constant.LOG.info(this.getClass(), "start finish");
         } catch(Exception e) {
-            Constant.LOG.error("[XsRpcNettyServer] start error", e);
+            Constant.LOG.error(this.getClass(), "start error", e);
         } finally {
             // Shut down all event loops to terminate all threads.
             bossGroup.shutdownGracefully();

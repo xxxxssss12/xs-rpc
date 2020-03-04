@@ -51,6 +51,8 @@ public class NettyDecoderAdapter extends ByteToMessageDecoder implements Decoder
             msg = decoder.decode(bt);
         }
         out.add(msg);      //Read integer from inbound ByteBuf, add to the List of decodec messages
-        Constant.LOG.debug("[DecoderAdapter] do decoder..msg=" + msg.getData() + ", sessionId=" + msg.getSessionId());
+        if (Constant.LOG.isDebugEnabled()) {
+            Constant.LOG.debug(this.getClass(), "do decoder..msg=" + msg.getData() + ", sessionId=" + msg.getSessionId());
+        }
     }
 }

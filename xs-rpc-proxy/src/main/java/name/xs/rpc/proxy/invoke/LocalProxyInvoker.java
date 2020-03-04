@@ -41,7 +41,7 @@ public class LocalProxyInvoker<T> extends AbstractProxyInvoker<T>  {
             Object result = method.invoke(instance, arguments);
             rs.setValue(result);
         } catch (Throwable e) {
-            Constant.LOG.error("local invoke method error", e);
+            Constant.LOG.error(this.getClass(), "local invoke method error", e);
             rs.setException(new XsRpcExceptionSerialize(e));
         }
         return rs;

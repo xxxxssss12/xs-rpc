@@ -18,10 +18,10 @@ public class XsRpcNettyClientHandler extends ChannelInboundHandlerAdapter implem
     //接收到数据后调用...
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        Constant.LOG.debug("[XsRpcNettyClientHandler] channelRead..");
+        Constant.LOG.debug(this.getClass(), "channelRead..");
         if (msg instanceof Message) {
             Message msg1 = (Message) msg;
-            Constant.LOG.debug("[XsRpcNettyClientHandler] channelRead,msg={},sessionId={}", msg1.getData(), msg1.getSessionId());
+            Constant.LOG.debug(this.getClass(), "channelRead,msg={},sessionId={}", msg1.getData(), msg1.getSessionId());
             // 根据请求的sessionId获取进行中的请求
             RequestingDto requestingDto = RemoteContext.instance().getRequestingDto(msg1.getSessionId());
             if (requestingDto != null) {
@@ -30,14 +30,14 @@ public class XsRpcNettyClientHandler extends ChannelInboundHandlerAdapter implem
                 requestingDto.getCountDownLatch().countDown();
             }
         } else {
-            Constant.LOG.error("[XsRpcNettyClientHandler] unknown msg");
+            Constant.LOG.error(this.getClass(), "unknown msg");
         }
     }
 
     //完成时调用
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
-        Constant.LOG.debug("[XsRpcNettyClientHandler] channelReadComplete");
+        Constant.LOG.debug(this.getClass(), "channelReadComplete");
         ctx.flush();
     }
 
@@ -45,7 +45,6 @@ public class XsRpcNettyClientHandler extends ChannelInboundHandlerAdapter implem
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         // Close the connection when an exception is raised.
-        Constant.LOG.error("[XsRpcNettyClientHandler] exceptionCaught", cause);
-//        ctx.close();
+        Constant.LOG.error(this.getClass(), "exceptionCaught", cause);
     }
 }

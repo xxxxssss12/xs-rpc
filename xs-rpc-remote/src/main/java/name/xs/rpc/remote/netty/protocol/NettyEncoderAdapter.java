@@ -26,7 +26,9 @@ public class NettyEncoderAdapter extends MessageToByteEncoder<Message> implement
     }
     @Override
     protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
-        Constant.LOG.debug("[EncoderAdapter] do encoder..msg={}, sessionId={}", msg.getData(), msg.getSessionId());
+        if (Constant.LOG.isDebugEnabled()) {
+            Constant.LOG.debug(this.getClass(), "do encoder..msg={}, sessionId={}", msg.getData(), msg.getSessionId());
+        }
         byte[] bytes = encoder.encode(msg);
         out.writeBytes(bytes);
     }

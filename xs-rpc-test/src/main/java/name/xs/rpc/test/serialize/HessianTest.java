@@ -94,12 +94,12 @@ public class HessianTest {
             Exception obj = new Exception();
             // 序列化
             byte[] serialize = serialize(obj);
-            Constant.LOG.info("serialize.length={}", serialize.length);
+            Constant.LOG.info(HessianTest.class, "serialize.length={}", serialize.length);
             // 反序列化
             obj = (Exception) deserialize(serialize);
             String s = getErrorInfoFromException(obj);
             log.info(s);
-            Constant.LOG.info("error2Str.length={}", s.getBytes().length);
+            Constant.LOG.info(HessianTest.class, "error2Str.length={}", s.getBytes().length);
         }
 
     }

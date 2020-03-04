@@ -16,7 +16,7 @@ public class DefaultEventBus implements EventBus {
     @Override
     public boolean publish(Event<?> event) {
         if (event == null || event.getEventEnum() == null) {
-            Constant.LOG.error("event publish fail: wrong event");
+            Constant.LOG.error(this.getClass(), "event publish fail: wrong event");
             return false;
         }
         Map<String, EventListener> eventListeners = listenerHolder.get(event.getEventEnum());
@@ -27,7 +27,7 @@ public class DefaultEventBus implements EventBus {
             try {
                 listener.onEventPublish(event);
             } catch (Exception e) {
-                Constant.LOG.error("event publish fail, listenerId=" + (listener == null ? "null" : listener.getId()), e);
+                Constant.LOG.error(this.getClass(),"event publish fail, listenerId=" + (listener == null ? "null" : listener.getId()), e);
             }
         }
         return true;
